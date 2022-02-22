@@ -4,12 +4,9 @@ export const styles = StyleSheet.create({
   imageBackground: {
     display: "flex",
     flex: 1,
-    justifyContent: "center",
-  },
-  keyboard: {
-    flex: 1,
   },
   header: {
+    flex: 1,
     alignItems: "center",
     marginTop: "10%",
     marginBottom: "10%",
@@ -22,6 +19,7 @@ export const styles = StyleSheet.create({
     color: "#F1FAFF",
   },
   authorizationForm: {
+    filter: "blur(10)",
     borderColor: "white",
     borderWidth: 1,
     marginRight: 34,
@@ -83,6 +81,11 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: 'center'
   },
+  footer: {
+    alignItems: "center",
+    justifyContent: 'center',
+    flex: 2
+  },
   toRegistrationButton: {
     alignItems: "center",
     justifyContent: 'center',
@@ -93,5 +96,8 @@ export const styles = StyleSheet.create({
     marginTop: "10%",
     padding: "3%",
     borderRadius: 100
-  }
+  },
+  toRegistrationButtonText: {
+    color: "white"
+  },
 });

@@ -16,19 +16,10 @@ import {FacebookImage} from "../../assets/images/facebook";
 
 const backgroundImage = require("../../assets/images/background.png");
 
-const Auth: () => Node = ({navigation}) => {
+const Registration: () => Node = ({navigation}) => {
   const [login, onChangeLogin] = React.useState("");
+  const [username, onChangeUsername] = React.useState("");
   const [pass, onChangePass] = React.useState("");
-  let checkMail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-
-  const submitHandler = () => {
-    if (checkMail.test(login) === false) {
-      alert("Email is Not Correct");
-    }
-    else {
-      alert("Email is Correct");
-    }
-  }
 
   return (
     <ImageBackground source={backgroundImage} resizeMode="cover"
@@ -39,7 +30,7 @@ const Auth: () => Node = ({navigation}) => {
 
       <View style={styles.authorizationForm}>
         <View style={styles.authorizationFormHeader}>
-          <Text style={styles.textAuth}>Авторизация</Text>
+          <Text style={styles.textAuth}>Регистрация</Text>
         </View>
         <TextInput
           placeholder="Ваш адрес электронной почты"
@@ -48,14 +39,20 @@ const Auth: () => Node = ({navigation}) => {
           value={login}
         />
         <TextInput
-          placeholder="Ваш пароль"
+          placeholder="Ваше имя"
+          style={styles.input}
+          onChangeText={onChangeUsername}
+          value={username}
+        />
+        <TextInput
+          placeholder="Придумайте пароль"
           style={styles.input}
           onChangeText={onChangePass}
           value={pass}
           secureTextEntry={true}
         />
-        <TouchableOpacity style={styles.submit} onPress={()=>submitHandler()}>
-          <Text style={styles.submitText}>Войти</Text>
+        <TouchableOpacity style={styles.submit}>
+          <Text style={styles.submitText}>Создать аккаунт</Text>
         </TouchableOpacity>
         <View style={styles.diviningLine}/>
         <View style={styles.authorizationButtons}>
@@ -74,8 +71,8 @@ const Auth: () => Node = ({navigation}) => {
         <TouchableOpacity style={styles.toRegistrationButton}>
           <Text style={styles.toRegistrationButtonText}
                 onPress={()=>
-                  navigation.navigate('Registration')
-                }>У меня нет аккаунта</Text>
+                  navigation.navigate('Auth')
+                }>У меня уже есть аккаунт</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -83,4 +80,4 @@ const Auth: () => Node = ({navigation}) => {
 };
 
 
-export default Auth;
+export default Registration;

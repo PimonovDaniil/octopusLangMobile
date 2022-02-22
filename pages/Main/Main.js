@@ -10,7 +10,7 @@ const Main: () => Node = ({ navigation }) => {
         onPress={()=>
           navigation.navigate('Auth')
         }
-        title="Auth"
+        title="Registration"
       />
     </View>
   );

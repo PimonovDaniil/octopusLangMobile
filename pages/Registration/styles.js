@@ -8,8 +8,8 @@ export const styles = StyleSheet.create({
   header: {
     flex: 1,
     alignItems: "center",
-    marginTop: "10%",
-    marginBottom: "10%",
+    marginTop: "5%",
+    marginBottom: "5%",
   },
   textOctopus: {
     fontStyle: "normal",
@@ -51,8 +51,8 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: 'center',
     backgroundColor: "#EB5757",
-    marginLeft: "30%",
-    marginRight: "30%",
+    marginLeft: "25%",
+    marginRight: "25%",
     height: 44,
     borderRadius: 100,
     marginTop: "3%",

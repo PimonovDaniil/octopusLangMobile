@@ -1,26 +1,77 @@
 import React from 'react';
 import type {Node} from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {
+  ImageBackground,
+  Text,
+  View,
+  TextInput,
+  KeyboardAvoidingView, TouchableOpacity
+} from 'react-native';
 
-const Auth: () => Node = ({ navigation }) => {
+import {SvgXml} from 'react-native-svg';
+import {styles} from "./styles";
+import {GoogleImage} from "../../assets/images/google";
+import {LinkedinImage} from "../../assets/images/linkedin";
+import {FacebookImage} from "../../assets/images/facebook";
+const backgroundImage = require("../../assets/images/background.png");
+
+const Auth: () => Node = ({navigation}) => {
+  const [login, onChangeLogin] = React.useState("");
+  const [pass, onChangePass] = React.useState("");
+
   return (
-    <View>
-      <Text>Auth</Text>
-      <Button
-        onPress={()=>
-          navigation.navigate('Main')
-        }
-        title="Main"
-      />
-    </View>
+    <ImageBackground source={backgroundImage} resizeMode="cover"
+                     style={styles.imageBackground}>
+      <KeyboardAvoidingView
+        behavior="padding"
+        style={styles.keyboard}
+      >
+        <View style={styles.header}>
+          <Text style={styles.textOctopus}>OCTOPUS</Text>
+        </View>
+
+        <View style={styles.authorizationForm}>
+          <View style={styles.authorizationFormHeader}>
+            <Text style={styles.textAuth}>Авторизация</Text>
+          </View>
+          <TextInput
+            placeholder="Ваш адрес электронной почты"
+            style={styles.input}
+            onChangeText={onChangeLogin}
+            value={login}
+          />
+          <TextInput
+            placeholder="Ваш пароль"
+            style={styles.input}
+            onChangeText={onChangePass}
+            value={pass}
+            secureTextEntry={true}
+          />
+          <TouchableOpacity style={styles.submit}>
+            <Text style={styles.submitText}>Войти</Text>
+          </TouchableOpacity>
+          <View style={styles.diviningLine}/>
+          <View style={styles.authorizationButtons}>
+            <TouchableOpacity style={styles.authorizationButton}>
+              <SvgXml xml={GoogleImage} width="50%" height="50%"/>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.authorizationButton}>
+              <SvgXml xml={LinkedinImage} width="50%" height="50%"/>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.authorizationButton}>
+              <SvgXml xml={FacebookImage} width="50%" height="50%"/>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <TouchableOpacity style={styles.toRegistrationButton}>
+          <Text style={{color: "white"}}>У меня нет аккаунта</Text>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
+    </ImageBackground>
   );
 };
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-});
+
 
 export default Auth;

@@ -71,11 +71,10 @@ const Auth: () => Node = ({navigation}) => {
         </View>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.toRegistrationButton}>
-          <Text style={styles.toRegistrationButtonText}
-                onPress={()=>
-                  navigation.navigate('Registration')
-                }>У меня нет аккаунта</Text>
+        <TouchableOpacity style={styles.toRegistrationButton} onPress={()=>
+          navigation.navigate('Registration')
+        }>
+          <Text style={styles.toRegistrationButtonText}>У меня нет аккаунта</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>

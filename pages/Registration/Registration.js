@@ -68,11 +68,10 @@ const Registration: () => Node = ({navigation}) => {
         </View>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.toRegistrationButton}>
-          <Text style={styles.toRegistrationButtonText}
-                onPress={()=>
-                  navigation.navigate('Auth')
-                }>У меня уже есть аккаунт</Text>
+        <TouchableOpacity style={styles.toRegistrationButton} onPress={()=>
+          navigation.navigate('Auth')
+        }>
+          <Text style={styles.toRegistrationButtonText}>У меня уже есть аккаунт</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>

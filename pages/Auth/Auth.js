@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import type {Node} from 'react';
 import {
   ImageBackground,
   Text,
   View,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Animated,
+  Easing, Dimensions
 } from 'react-native';
 
 import {SvgXml} from 'react-native-svg';
@@ -13,6 +15,8 @@ import {styles} from "./styles";
 import {GoogleImage} from "../../assets/images/google";
 import {LinkedinImage} from "../../assets/images/linkedin";
 import {FacebookImage} from "../../assets/images/facebook";
+import {BubbleImage} from "../../assets/images/bubble";
+import {TouchableWithoutFeedback} from "react-native-web";
 
 const backgroundImage = require("../../assets/images/background.png");
 
@@ -30,9 +34,32 @@ const Auth: () => Node = ({navigation}) => {
     }
   }
 
+  const valueXY = useRef(new Animated.ValueXY({x:200,y:Dimensions.get ('window').height+100})).current
+
+  const startAnimate = (x, amply) => {
+      let m = [];
+      const n = 20;
+      const speed = 500;
+      for(let i = n; i > -5 ; i-- ){
+        m.push(Animated.timing(valueXY, { toValue:
+            {x: amply*Math.sin((Dimensions.get ('window').width/n*i)/50)+x, y: Dimensions.get ('window').height/n*i +100},
+          useNativeDriver: true, duration: n === i ? 0 : speed, easing: Easing.linear }));
+      }
+
+      Animated.sequence(m).start();
+  }
+
+  useEffect(() => {
+    // Обновляем заголовок документа с помощью API браузера
+    startAnimate(200, 50);
+  });
   return (
     <ImageBackground source={backgroundImage} resizeMode="cover"
                      style={styles.imageBackground}>
+      <Animated.View style={{ transform: [{ translateY: valueXY.y},{ translateX: valueXY.x}], position: "absolute"}}  >
+          <SvgXml xml={BubbleImage}  />
+      </Animated.View>
+
       <View style={styles.header}>
         <Text style={styles.textOctopus}>OCTOPUS</Text>
       </View>

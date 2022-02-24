@@ -1,13 +1,10 @@
-import React, {useEffect, useRef} from 'react';
+import React from 'react';
 import type {Node} from 'react';
 import {
-  ImageBackground,
   Text,
   View,
   TextInput,
   TouchableOpacity,
-  Animated,
-  Easing, Dimensions
 } from 'react-native';
 
 import {SvgXml} from 'react-native-svg';
@@ -15,11 +12,8 @@ import {styles} from "./styles";
 import {GoogleImage} from "../../assets/images/google";
 import {LinkedinImage} from "../../assets/images/linkedin";
 import {FacebookImage} from "../../assets/images/facebook";
-import {BubbleImage} from "../../assets/images/bubble";
-import {TouchableWithoutFeedback} from "react-native-web";
-import Bubble from "../../components/Bubble/Bubble";
+import Bubbles from "../../components/Bubble/Bubbles";
 
-const backgroundImage = require("../../assets/images/background.png");
 
 const Auth: () => Node = ({navigation}) => {
   const [login, onChangeLogin] = React.useState("");
@@ -29,16 +23,14 @@ const Auth: () => Node = ({navigation}) => {
   const submitHandler = () => {
     if (checkMail.test(login) === false) {
       alert("Email is Not Correct");
-    }
-    else {
+    } else {
       alert("Email is Correct");
     }
   }
 
   return (
-    <ImageBackground source={backgroundImage} resizeMode="cover"
-                     style={styles.imageBackground}>
-      <Bubble />
+    <View style={{backgroundColor: "#297fb8", flex: 1}}>
+      <Bubbles />
       <View style={styles.header}>
         <Text style={styles.textOctopus}>OCTOPUS</Text>
       </View>
@@ -60,7 +52,7 @@ const Auth: () => Node = ({navigation}) => {
           value={pass}
           secureTextEntry={true}
         />
-        <TouchableOpacity style={styles.submit} onPress={()=>submitHandler()}>
+        <TouchableOpacity style={styles.submit} onPress={() => submitHandler()}>
           <Text style={styles.submitText}>Войти</Text>
         </TouchableOpacity>
         <View style={styles.diviningLine}/>
@@ -77,13 +69,13 @@ const Auth: () => Node = ({navigation}) => {
         </View>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.toRegistrationButton} onPress={()=>
+        <TouchableOpacity style={styles.toRegistrationButton} onPress={() =>
           navigation.navigate('Registration')
         }>
           <Text style={styles.toRegistrationButtonText}>У меня нет аккаунта</Text>
         </TouchableOpacity>
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 

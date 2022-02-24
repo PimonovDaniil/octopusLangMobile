@@ -13,6 +13,7 @@ import {styles} from "./styles";
 import {GoogleImage} from "../../assets/images/google";
 import {LinkedinImage} from "../../assets/images/linkedin";
 import {FacebookImage} from "../../assets/images/facebook";
+import Bubbles from "../../components/Bubble/Bubbles";
 
 const backgroundImage = require("../../assets/images/background.png");
 
@@ -22,8 +23,8 @@ const Registration: () => Node = ({navigation}) => {
   const [pass, onChangePass] = React.useState("");
 
   return (
-    <ImageBackground source={backgroundImage} resizeMode="cover"
-                     style={styles.imageBackground}>
+    <View style={{backgroundColor: "#297fb8", flex: 1}}>
+      <Bubbles />
       <View style={styles.header}>
         <Text style={styles.textOctopus}>OCTOPUS</Text>
       </View>
@@ -68,13 +69,13 @@ const Registration: () => Node = ({navigation}) => {
         </View>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.toRegistrationButton} onPress={()=>
+        <TouchableOpacity style={styles.toRegistrationButton} onPress={() =>
           navigation.navigate('Auth')
         }>
           <Text style={styles.toRegistrationButtonText}>У меня уже есть аккаунт</Text>
         </TouchableOpacity>
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 

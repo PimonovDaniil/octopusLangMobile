@@ -8,7 +8,7 @@ import {
 import {SvgXml} from 'react-native-svg';
 import {BubbleImage} from "../../assets/images/bubble";
 
-const Bubble: () => Node = () => {
+const Bubble: () => Node = ({delayBubble}) => {
 
   const valueXY = useRef(new Animated.ValueXY({x:200,y:Dimensions.get ('window').height+100})).current
 
@@ -18,16 +18,19 @@ const Bubble: () => Node = () => {
     let m = [];
     const n = 20;
     const speed = 500;
-    for(let i = n; i > -5 ; i-- ){
+    let randY = Math.random() * (n/2) + n;
+    for(let i = randY; i > -4 ; i-- ){
       m.push(Animated.timing(valueXY, { toValue:
-          {x: amply*Math.sin((Dimensions.get ('window').width/n*i)/50)+x, y: Dimensions.get ('window').height/n*i +100},
-        useNativeDriver: true, duration: n === i ? 0 : speed, easing: Easing.linear }));
+          {x: amply*Math.sin((Dimensions.get ('window').width/n*i)/50)+x, y: (Dimensions.get ('window').height+100)/n*i},
+        useNativeDriver: true, duration: randY === i ? 0 : speed, easing: Easing.linear }));
     }
-    Animated.sequence(m).start();
+    Animated.loop(Animated.sequence(m),
+      {iterations: -1},).start();
   }
   useEffect(() => {
-    startAnimate();
-    setInterval(startAnimate, 500*25);
+    setTimeout(()=>{
+      startAnimate();
+    }, delayBubble);
   });
 
 

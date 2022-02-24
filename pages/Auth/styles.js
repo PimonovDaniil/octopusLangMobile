@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     color: "#F1FAFF",
   },
   authorizationForm: {
-    backgroundColor: 'rgba(41, 128, 185, 0.8)',
+    backgroundColor: 'rgba(41, 128, 185, 0.7)',
     opacity: 900,
     borderColor: "white",
     borderWidth: 1,

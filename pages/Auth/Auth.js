@@ -6,13 +6,16 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-
 import {SvgXml} from 'react-native-svg';
 import {styles} from "./styles";
 import {GoogleImage} from "../../assets/images/google";
 import {LinkedinImage} from "../../assets/images/linkedin";
 import {FacebookImage} from "../../assets/images/facebook";
 import Bubbles from "../../components/Bubble/Bubbles";
+import {getToken} from "../../endpoints/auth";
+
+
+
 
 
 const Auth: () => Node = ({navigation}) => {
@@ -21,11 +24,18 @@ const Auth: () => Node = ({navigation}) => {
   let checkMail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
 
   const submitHandler = () => {
-    if (checkMail.test(login) === false) {
-      alert("Email is Not Correct");
-    } else {
-      alert("Email is Correct");
-    }
+    // if (checkMail.test(login) === false) {
+    //   alert("Email is Not Correct");
+    // } else {
+    //   alert("Email is Correct");
+    // }
+    const user = {
+      username: "",
+      password: ""
+    };
+    getToken(user).then(response => { //TODO модальная загрузка
+      alert(response.data.token)
+    })
   }
 
   return (

@@ -13,6 +13,8 @@ import {LinkedinImage} from "../../assets/images/linkedin";
 import {FacebookImage} from "../../assets/images/facebook";
 import Bubbles from "../../components/Bubble/Bubbles";
 import {getToken} from "../../endpoints/auth";
+import Loader from "react-native-modal-loader";
+import {setToken} from "../../store/token";
 
 
 
@@ -21,25 +23,33 @@ import {getToken} from "../../endpoints/auth";
 const Auth: () => Node = ({navigation}) => {
   const [login, onChangeLogin] = React.useState("");
   const [pass, onChangePass] = React.useState("");
-  let checkMail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const submitHandler = () => {
-    // if (checkMail.test(login) === false) {
-    //   alert("Email is Not Correct");
-    // } else {
-    //   alert("Email is Correct");
-    // }
-    const user = {
-      username: "",
-      password: ""
+    const authData = {
+      username: login,
+      password: pass
     };
-    getToken(user).then(response => { //TODO модальная загрузка
-      alert(response.data.token)
-    })
+    getToken(authData).then(response => {
+      setIsLoading(false);
+      if(response.status === 200){
+        setToken(response.data.token);
+        //TODO сбрасывать значения логина и пароля
+        navigation.navigate('Main')
+      }
+    }).catch((error) => {
+      setIsLoading(false);
+      if (error.message === "Request failed with status code 400") {
+        alert("Неверный логин или пароль");
+      }
+    });
+    setIsLoading(true);
   }
+
 
   return (
     <View style={{backgroundColor: "#297fb8", flex: 1}}>
+      <Loader loading={isLoading} color="#297fb8" />
       <Bubbles />
       <View style={styles.header}>
         <Text style={styles.textOctopus}>OCTOPUS</Text>

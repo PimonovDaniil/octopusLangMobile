@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import type {Node} from 'react';
 import {
   ImageBackground,
   Text,
   View,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity, Keyboard
 } from 'react-native';
 
 import {SvgXml} from 'react-native-svg';
@@ -21,12 +21,35 @@ const Registration: () => Node = ({navigation}) => {
   const [login, onChangeLogin] = React.useState("");
   const [username, onChangeUsername] = React.useState("");
   const [pass, onChangePass] = React.useState("");
+  const [isKeyboardVisible, setKeyboardVisible] = React.useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true); // or some other action
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false); // or some other action
+      }
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
 
   return (
     <View style={{backgroundColor: "#297fb8", flex: 1}}>
-      <Bubbles />
+      <Bubbles/>
       <View style={styles.header}>
-        <Text style={styles.textOctopus}>OCTOPUS</Text>
+        {!isKeyboardVisible && (
+          <Text style={styles.textOctopus}>OCTOPUS</Text>
+        )}
       </View>
 
       <View style={styles.authorizationForm}>
@@ -69,11 +92,13 @@ const Registration: () => Node = ({navigation}) => {
         </View>
       </View>
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.toRegistrationButton} onPress={() =>
-          navigation.navigate('Auth')
-        }>
-          <Text style={styles.toRegistrationButtonText}>У меня уже есть аккаунт</Text>
-        </TouchableOpacity>
+        {!isKeyboardVisible && (
+          <TouchableOpacity style={styles.toRegistrationButton} onPress={() =>
+            navigation.navigate('Auth')
+          }>
+            <Text style={styles.toRegistrationButtonText}>У меня уже есть аккаунт</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );

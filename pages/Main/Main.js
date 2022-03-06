@@ -1,9 +1,12 @@
 import React from 'react';
 import type {Node} from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
-import {logout} from "../../store/token";
+import {logout, refreshToken, token} from "../../store/token";
+import {useStore} from "effector-react";
 
 const Main: () => Node = ({ navigation }) => {
+  const myToken = useStore(token)
+  const myRefreshToken = useStore(refreshToken)
   return (
     <View>
       <Text>Main</Text>
@@ -14,6 +17,8 @@ const Main: () => Node = ({ navigation }) => {
         }}
         title="logout"
       />
+      <Text>Token={myToken}</Text>
+      <Text>Refresh token={myRefreshToken}</Text>
     </View>
   );
 };

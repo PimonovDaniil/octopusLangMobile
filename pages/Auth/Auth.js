@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import type {Node} from 'react';
 import {
   Text,
   View,
   TextInput,
-  TouchableOpacity,
+  TouchableOpacity, Keyboard,
 } from 'react-native';
 import {SvgXml} from 'react-native-svg';
 import {styles} from "./styles";
@@ -17,13 +17,31 @@ import Loader from "react-native-modal-loader";
 import {setToken} from "../../store/token";
 
 
-
-
-
 const Auth: () => Node = ({navigation}) => {
   const [login, onChangeLogin] = React.useState("");
   const [pass, onChangePass] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isKeyboardVisible, setKeyboardVisible] = React.useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        setKeyboardVisible(true); // or some other action
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        setKeyboardVisible(false); // or some other action
+      }
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
 
   const submitHandler = () => {
     const authData = {
@@ -32,8 +50,9 @@ const Auth: () => Node = ({navigation}) => {
     };
     getToken(authData).then(response => {
       setIsLoading(false);
-      if(response.status === 200){
+      if (response.status === 200) {
         setToken(response.data.token);
+        //setRefreshToken(response.data.refresh_token) //TODO получать refreshToken
         //TODO сбрасывать значения логина и пароля
         navigation.navigate('Main')
       }
@@ -49,10 +68,12 @@ const Auth: () => Node = ({navigation}) => {
 
   return (
     <View style={{backgroundColor: "#297fb8", flex: 1}}>
-      <Loader loading={isLoading} color="#297fb8" />
-      <Bubbles />
+      <Loader loading={isLoading} color="#297fb8"/>
+      <Bubbles/>
       <View style={styles.header}>
-        <Text style={styles.textOctopus}>OCTOPUS</Text>
+        {!isKeyboardVisible && (
+          <Text style={styles.textOctopus}>OCTOPUS</Text>
+        )}
       </View>
 
       <View style={styles.authorizationForm}>
@@ -88,12 +109,15 @@ const Auth: () => Node = ({navigation}) => {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.footer}>
-        <TouchableOpacity style={styles.toRegistrationButton} onPress={() =>
-          navigation.navigate('Registration')
-        }>
-          <Text style={styles.toRegistrationButtonText}>У меня нет аккаунта</Text>
-        </TouchableOpacity>
+
+      <View style={styles.footer} vi>
+        {!isKeyboardVisible && (
+          <TouchableOpacity style={styles.toRegistrationButton} onPress={() =>
+            navigation.navigate('Registration')
+          }>
+            <Text style={styles.toRegistrationButtonText}>У меня нет аккаунта</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );

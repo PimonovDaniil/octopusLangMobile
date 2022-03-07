@@ -14,7 +14,7 @@ import {FacebookImage} from "../../assets/images/facebook";
 import Bubbles from "../../components/Bubble/Bubbles";
 import {getToken} from "../../endpoints/auth";
 import Loader from "react-native-modal-loader";
-import {setToken} from "../../store/token";
+import {setRefreshToken, setToken} from "../../store/token";
 
 
 const Auth: () => Node = ({navigation}) => {
@@ -51,9 +51,11 @@ const Auth: () => Node = ({navigation}) => {
     getToken(authData).then(response => {
       setIsLoading(false);
       if (response.status === 200) {
-        setToken(response.data.token);
-        //setRefreshToken(response.data.refresh_token) //TODO получать refreshToken
+        setToken(response.data["Token"]);
+        setRefreshToken(response.data["Refresh"]) //TODO получать refreshToken
         //TODO сбрасывать значения логина и пароля
+        onChangeLogin("");
+        onChangePass("");
         navigation.navigate('Main')
       }
     }).catch((error) => {

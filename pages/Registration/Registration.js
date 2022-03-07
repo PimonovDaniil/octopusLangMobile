@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import type {Node} from 'react';
 import {
-  ImageBackground,
   Text,
   View,
   TextInput,
@@ -14,13 +13,15 @@ import {GoogleImage} from "../../assets/images/google";
 import {LinkedinImage} from "../../assets/images/linkedin";
 import {FacebookImage} from "../../assets/images/facebook";
 import Bubbles from "../../components/Bubble/Bubbles";
+import Loader from "react-native-modal-loader";
+import {registration} from "../../endpoints/auth";
 
-const backgroundImage = require("../../assets/images/background.png");
 
 const Registration: () => Node = ({navigation}) => {
   const [login, onChangeLogin] = React.useState("");
   const [username, onChangeUsername] = React.useState("");
   const [pass, onChangePass] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
   const [isKeyboardVisible, setKeyboardVisible] = React.useState(false);
 
   useEffect(() => {
@@ -43,8 +44,44 @@ const Registration: () => Node = ({navigation}) => {
     };
   }, []);
 
+  const submitHandler = () => {
+    const registrationData = {
+      username: username,
+      password: pass,
+      email: login
+    };
+    registration(registrationData).then(response => {
+      setIsLoading(false);
+      if (response.status === 200) {
+        //TODO сбрасывать значения логина и пароля
+        navigation.navigate('Auth');
+        alert("Проверьте почту");
+      }
+    }).catch((error) => {
+      setIsLoading(false);
+      if (error.message === "Request failed with status code 400") { //TODO
+        alert("Неверный логин или пароль");
+      }
+    });
+    setIsLoading(true);
+
+    // axios.post('http://192.168.1.2:8080/auth/register', queryString.stringify({
+    //   username: "daniil",
+    //   password: "zaq12wsx",
+    //   email: "pimonov.daniil@bk.ru"
+    // }), {
+    //   headers: {
+    //     "Content-Type": "application/x-www-form-urlencoded",
+    //   }
+    // }).then(response => {
+    //   console.log(response.data)
+    // }).catch(err => console.log("api Erorr: ", err.response))
+
+  }
+
   return (
     <View style={{backgroundColor: "#297fb8", flex: 1}}>
+      <Loader loading={isLoading} color="#297fb8"/>
       <Bubbles/>
       <View style={styles.header}>
         {!isKeyboardVisible && (
@@ -75,7 +112,7 @@ const Registration: () => Node = ({navigation}) => {
           value={pass}
           secureTextEntry={true}
         />
-        <TouchableOpacity style={styles.submit}>
+        <TouchableOpacity style={styles.submit} onPress={() => submitHandler()}>
           <Text style={styles.submitText}>Создать аккаунт</Text>
         </TouchableOpacity>
         <View style={styles.diviningLine}/>

@@ -23,6 +23,7 @@ const App: () => Node = () => {
         screenOptions={{
           headerShown: false
         }}>
+        <Stack.Screen name="Main" component={Main} />
         <Stack.Screen
           name="Auth"
           component={Auth}
@@ -31,7 +32,6 @@ const App: () => Node = () => {
           name="Registration"
           component={Registration}
         />
-        <Stack.Screen name="Main" component={Main} />
       </Stack.Navigator>
     </NavigationContainer>
   );

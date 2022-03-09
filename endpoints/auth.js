@@ -10,10 +10,6 @@ export const getToken = async (data) => {
   return await axios.post(`${baseUrl}/auth/auth`, queryString.stringify(data));
 }
 
-export const getRefreshToken = async (data) => {
-  return await axios.post(`${baseUrl}/auth/refresh`, queryString.stringify(data));
-}
-
 export const checkToken = async () => {
   return await axios.get(`${baseUrl}/auth/checkAuth`);
 }

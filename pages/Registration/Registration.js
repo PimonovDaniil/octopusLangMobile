@@ -14,7 +14,7 @@ import {LinkedinImage} from "../../assets/images/linkedin";
 import {FacebookImage} from "../../assets/images/facebook";
 import Bubbles from "../../components/Bubble/Bubbles";
 import Loader from "react-native-modal-loader";
-import authEndpoints, {registration} from "../../endpoints/auth";
+import {registration} from "../../endpoints/auth";
 import {checkMail} from "../../functions/checkMail";
 
 

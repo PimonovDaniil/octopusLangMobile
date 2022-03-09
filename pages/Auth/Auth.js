@@ -12,9 +12,9 @@ import {GoogleImage} from "../../assets/images/google";
 import {LinkedinImage} from "../../assets/images/linkedin";
 import {FacebookImage} from "../../assets/images/facebook";
 import Bubbles from "../../components/Bubble/Bubbles";
-import authEndpoints, {getToken} from "../../endpoints/auth";
 import Loader from "react-native-modal-loader";
-import {setRefreshToken, setToken} from "../../store/token";
+import  {getToken} from "../../endpoints/auth";
+import {axios} from "../../endpoints/axios";
 
 
 const Auth: () => Node = ({navigation}) => {
@@ -51,9 +51,9 @@ const Auth: () => Node = ({navigation}) => {
     getToken(authData).then(response => {
       setIsLoading(false);
       if (response.status === 200) {
-        setToken(response.data["Token"]);
-        setRefreshToken(response.data["Refresh"]) //TODO получать refreshToken
-        //TODO сбрасывать значения логина и пароля
+        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data["Token"]}`;
+        axios.defaults['Refresh'] = response.data["Refresh"];
+        axios.defaults['Token'] = response.data["Token"];
         onChangeLogin("");
         onChangePass("");
         navigation.navigate('Main')

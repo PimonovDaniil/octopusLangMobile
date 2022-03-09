@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-navigation/native": "^6.0.8",
     "axios": "^0.26.0",
+    "axios-auth-refresh": "^3.2.2",
     "effector": "^22.2.0",
     "effector-react": "^22.0.6",
     "expo": "~44.0.0",

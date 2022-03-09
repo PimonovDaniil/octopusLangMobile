@@ -1,37 +1,36 @@
-import axios from "axios";
 import {API_URL} from "@env"
-import {useStore} from "effector-react";
-import {refreshToken, token} from "../store/token";
+import React from 'react';
+import {axios} from "./axios";
+import createAuthRefreshInterceptor from 'axios-auth-refresh';
 
 const queryString = require('query-string');
 const baseUrl = API_URL;
-const config = {
-  headers: {
-    "Content-Type": "application/x-www-form-urlencoded",
-  }
+
+export const getToken = async (data) => {
+  return await axios.post(`${baseUrl}/auth/auth`, queryString.stringify(data));
 }
 
-axios.interceptors.response.use(
-  r => r,
-  async error => {
-    alert("test");
-    if (error.response.status !== 401) {
-      throw error;
-    }
-  });
-
-export const getToken = async (authData) => {
-  return await axios.post(`${baseUrl}/auth/auth`, queryString.stringify(authData), config);
+export const getRefreshToken = async (data) => {
+  return await axios.post(`${baseUrl}/auth/refresh`, queryString.stringify(data));
 }
 
-export const checkToken = async (token) => {
-  config.headers["Authorization"] = token ? `Bearer ${token}` : '';
-  return await axios.get(`${baseUrl}/auth/checkAuth`, config);
+export const checkToken = async () => {
+  return await axios.get(`${baseUrl}/auth/checkAuth`);
+}
+
+export const registration = async (data) => {
+  return await axios.post(`${baseUrl}/auth/register`, queryString.stringify(data));
 }
 
 
-export const registration = async (registrationData) => {
-  return await axios.post(`${baseUrl}/auth/register`, queryString.stringify(registrationData), config);
-}
+const refreshAuthLogic = failedRequest => axios.post(`${baseUrl}/auth/refresh`, queryString.stringify({
+  token: axios.defaults['Token'],
+  refresh: axios.defaults["Refresh"]
+})).then(response => {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${response.data["Token"]}`;
+  axios.defaults['Refresh'] = response.data["Refresh"];
+  axios.defaults['Token'] = response.data["Token"];
+  return Promise.resolve();
+});
 
-
+createAuthRefreshInterceptor(axios, refreshAuthLogic);

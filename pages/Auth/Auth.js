@@ -12,7 +12,7 @@ import {GoogleImage} from "../../assets/images/google";
 import {LinkedinImage} from "../../assets/images/linkedin";
 import {FacebookImage} from "../../assets/images/facebook";
 import Bubbles from "../../components/Bubble/Bubbles";
-import {getToken} from "../../endpoints/auth";
+import authEndpoints, {getToken} from "../../endpoints/auth";
 import Loader from "react-native-modal-loader";
 import {setRefreshToken, setToken} from "../../store/token";
 

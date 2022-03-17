@@ -4,11 +4,13 @@ import {Text, View, ScrollView, TouchableOpacity} from 'react-native';
 import Bubbles from "../../components/Bubble/Bubbles";
 import Loader from "react-native-modal-loader";
 import {styles} from "./styles";
-
+import {SvgXml} from "react-native-svg";
+import {japanImage} from "../../assets/images/languages/japanese";
+import {chineImage} from "../../assets/images/languages/chinese";
+import {koreanImage} from "../../assets/images/languages/korean";
 
 const ChooseLanguage: () => Node = ({navigation}) => {
   const [isLoading, setIsLoading] = React.useState(false);
-
 
   return (
     <View style={{backgroundColor: "#297fb8", flex: 1}} q>
@@ -24,13 +26,19 @@ const ChooseLanguage: () => Node = ({navigation}) => {
       <View style={styles.langScroll}>
         <ScrollView scrollEventThrottle={16} horizontal={true} showsHorizontalScrollIndicator={false}>
           <TouchableOpacity style={styles.langBox}>
-
+            <SvgXml xml={japanImage} width="50%" height="50%"/>
+            <Text style={[styles.mainText, {fontSize: 20}]}>Японский</Text>
+            <Text style={[styles.mainText, {fontSize: 14}]}>Изучают 231 человек</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.langBox}>
-
+            <SvgXml xml={chineImage} width="50%" height="50%"/>
+            <Text style={[styles.mainText, {fontSize: 20}]}>Китайский</Text>
+            <Text style={[styles.mainText, {fontSize: 14}]}>Изучают 2 человек</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.langBox}>
-
+            <SvgXml xml={koreanImage} width="50%" height="50%"/>
+            <Text style={[styles.mainText, {fontSize: 20}]}>Корейский</Text>
+            <Text style={[styles.mainText, {fontSize: 14}]}>Изучают 246 человек</Text>
           </TouchableOpacity>
         </ScrollView>
       </View>

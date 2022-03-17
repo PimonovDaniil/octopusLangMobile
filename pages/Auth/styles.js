@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   },
   textOctopus: {
     fontStyle: "normal",
-    fontWeight: '900',
+    fontWeight: '700',
     fontSize: 32,
     lineHeight: 44,
     color: "#F1FAFF",

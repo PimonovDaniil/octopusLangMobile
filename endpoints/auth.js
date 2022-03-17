@@ -7,7 +7,7 @@ const queryString = require('query-string');
 const baseUrl = API_URL;
 
 export const getToken = async (data) => {
-  return await axios.post(`${baseUrl}/auth/auth`, queryString.stringify(data));
+  return await axios.post(`${baseUrl}/auth/auth`, data);
 }
 
 export const checkToken = async () => {
@@ -15,14 +15,14 @@ export const checkToken = async () => {
 }
 
 export const registration = async (data) => {
-  return await axios.post(`${baseUrl}/auth/register`, queryString.stringify(data));
+  return await axios.post(`${baseUrl}/auth/register`, data);
 }
 
 
-const refreshAuthLogic = failedRequest => axios.post(`${baseUrl}/auth/refresh`, queryString.stringify({
+const refreshAuthLogic = failedRequest => axios.post(`${baseUrl}/auth/refresh`, {
   token: axios.defaults['Token'],
   refresh: axios.defaults["Refresh"]
-})).then(response => {
+}).then(response => {
   axios.defaults.headers.common['Authorization'] = `Bearer ${response.data["Token"]}`;
   axios.defaults['Refresh'] = response.data["Refresh"];
   axios.defaults['Token'] = response.data["Token"];

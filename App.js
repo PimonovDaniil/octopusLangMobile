@@ -13,6 +13,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Registration from "./pages/Registration/Registration";
 import Main from "./pages/Main/Main";
 import Auth from "./pages/Auth/Auth";
+import ChooseLanguage from "./pages/chooseLanguage/ChooseLanguage";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ const App: () => Node = () => {
         screenOptions={{
           headerShown: false
         }}>
+        <Stack.Screen name="ChooseLanguage" component={ChooseLanguage} />
         <Stack.Screen name="Main" component={Main} />
         <Stack.Screen
           name="Auth"

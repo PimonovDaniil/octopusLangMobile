@@ -27,18 +27,18 @@ const ChooseLanguage: () => Node = ({navigation}) => {
         <ScrollView scrollEventThrottle={16} horizontal={true} showsHorizontalScrollIndicator={false}>
           <TouchableOpacity style={styles.langBox}>
             <SvgXml xml={japanImage} width="50%" height="50%"/>
-            <Text style={[styles.mainText, {fontSize: 20}]}>Японский</Text>
-            <Text style={[styles.mainText, {fontSize: 14}]}>Изучают 231 человек</Text>
+            <Text style={styles.langText}>Японский</Text>
+            <Text style={styles.mainText}>Изучают 231 человек</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.langBox}>
             <SvgXml xml={chineImage} width="50%" height="50%"/>
-            <Text style={[styles.mainText, {fontSize: 20}]}>Китайский</Text>
-            <Text style={[styles.mainText, {fontSize: 14}]}>Изучают 2 человек</Text>
+            <Text style={styles.langText}>Китайский</Text>
+            <Text style={styles.mainText}>Изучают 2 человек</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.langBox}>
             <SvgXml xml={koreanImage} width="50%" height="50%"/>
-            <Text style={[styles.mainText, {fontSize: 20}]}>Корейский</Text>
-            <Text style={[styles.mainText, {fontSize: 14}]}>Изучают 246 человек</Text>
+            <Text style={styles.langText}>Корейский</Text>
+            <Text style={styles.mainText}>Изучают 246 человек</Text>
           </TouchableOpacity>
         </ScrollView>
       </View>

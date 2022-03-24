@@ -11,7 +11,6 @@ import {SvgXml} from 'react-native-svg';
 import {styles} from "./styles";
 import {GoogleImage} from "../../assets/images/google";
 import {LinkedinImage} from "../../assets/images/linkedin";
-import {FacebookImage} from "../../assets/images/facebook";
 import Bubbles from "../../components/Bubble/Bubbles";
 import Loader from "react-native-modal-loader";
 import {registration} from "../../endpoints/auth";

@@ -46,6 +46,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'NunitoBold',
   },
   langBox: {
+    position: 'relative',
     margin: 10,
     backgroundColor: 'rgba(41, 128, 185, 0.5)',
     height: 224,
@@ -55,6 +56,12 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  selectedIm:{
+    position: 'absolute',
+    zIndex: 1,
+    right: 10,
+    top: 10
   },
   langScroll: {
     flex: 6,
@@ -72,5 +79,8 @@ export const styles = StyleSheet.create({
     borderRadius: 100,
     marginTop: "3%",
     marginBottom: "3%"
+  },
+  submitText: {
+    color: "white",
   },
 });

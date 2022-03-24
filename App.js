@@ -8,8 +8,8 @@
 
 import React, {useEffect, useState} from 'react';
 import type {Node} from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Registration from "./pages/Registration/Registration";
 import Main from "./pages/Main/Main";
 import Auth from "./pages/Auth/Auth";
@@ -26,7 +26,7 @@ const fonts = () => Font.loadAsync({
 const App: () => Node = () => {
   const [font, setFont] = useState(false);
 
-  if(font) {
+  if (font) {
     return (
       <NavigationContainer>
         <Stack.Navigator
@@ -46,8 +46,8 @@ const App: () => Node = () => {
         </Stack.Navigator>
       </NavigationContainer>
     );
-  }else{
-    return <AppLoading  startAsync={fonts} onFinish={()=>setFont(true)} onError={(error)=> console.warn(error)}
+  } else {
+    return <AppLoading startAsync={fonts} onFinish={() => setFont(true)} onError={(error) => console.warn(error)}
     />
   }
 };

@@ -10,7 +10,6 @@ import {SvgXml} from 'react-native-svg';
 import {styles} from "./styles";
 import {GoogleImage} from "../../assets/images/google";
 import {LinkedinImage} from "../../assets/images/linkedin";
-import {FacebookImage} from "../../assets/images/facebook";
 import Bubbles from "../../components/Bubble/Bubbles";
 import Loader from "react-native-modal-loader";
 import  {getToken} from "../../endpoints/auth";
@@ -107,7 +106,7 @@ const Auth: () => Node = ({navigation}) => {
             <SvgXml xml={LinkedinImage} width="50%" height="50%"/>
           </TouchableOpacity>
           <TouchableOpacity style={styles.authorizationButton}>
-            <SvgXml xml={FacebookImage} width="50%" height="50%"/>
+            <SvgXml xml={GoogleImage} width="50%" height="50%"/>
           </TouchableOpacity>
         </View>
       </View>

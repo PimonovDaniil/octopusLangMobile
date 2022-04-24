@@ -117,7 +117,7 @@ const Registration: () => Node = ({navigation}) => {
             <SvgXml xml={LinkedinImage} width="50%" height="50%"/>
           </TouchableOpacity>
           <TouchableOpacity style={styles.authorizationButton}>
-            <SvgXml xml={FacebookImage} width="50%" height="50%"/>
+            <SvgXml xml={GoogleImage} width="50%" height="50%"/>
           </TouchableOpacity>
         </View>
       </View>

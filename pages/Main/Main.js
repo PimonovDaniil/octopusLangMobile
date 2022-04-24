@@ -49,6 +49,10 @@ const Main: () => Node = ({ navigation }) => {
         onPress={()=> checkTokenHandler()}
         title="Check token"
       />
+      <Button
+        onPress={()=> navigation.navigate('Options')}
+        title="train kana"
+      />
     </View>
   );
 };

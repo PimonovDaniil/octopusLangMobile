@@ -43,27 +43,28 @@ const Auth: () => Node = ({navigation}) => {
   }, []);
 
   const submitHandler = () => {
-    const authData = {
-      username: login,
-      password: pass
-    };
-    getToken(authData).then(response => {
-      setIsLoading(false);
-      if (response.status === 200) {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data["Token"]}`;
-        axios.defaults['Refresh'] = response.data["Refresh"];
-        axios.defaults['Token'] = response.data["Token"];
-        onChangeLogin("");
-        onChangePass("");
-        navigation.navigate('Main')
-      }
-    }).catch((error) => {
-      setIsLoading(false);
-      if (error.message === "Request failed with status code 400") {
-        alert("Неверный логин или пароль");
-      }
-    });
-    setIsLoading(true);
+    navigation.navigate('Main')
+    // const authData = {
+    //   username: login,
+    //   password: pass
+    // };
+    // getToken(authData).then(response => {
+    //   setIsLoading(false);
+    //   if (response.status === 200) {
+    //     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data["Token"]}`;
+    //     axios.defaults['Refresh'] = response.data["Refresh"];
+    //     axios.defaults['Token'] = response.data["Token"];
+    //     onChangeLogin("");
+    //     onChangePass("");
+    //     navigation.navigate('Main')
+    //   }
+    // }).catch((error) => {
+    //   setIsLoading(false);
+    //   if (error.message === "Request failed with status code 400") {
+    //     alert("Неверный логин или пароль");
+    //   }
+    // });
+    // setIsLoading(true);
   }
 
 

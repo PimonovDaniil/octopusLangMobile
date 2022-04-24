@@ -16,6 +16,8 @@ import Auth from "./pages/Auth/Auth";
 import ChooseLanguage from "./pages/chooseLanguage/ChooseLanguage";
 import * as Font from 'expo-font'
 import AppLoading from 'expo-app-loading'
+import Profile from "./pages/profile/Profile";
+import Options from "./pages/kana/options/Options";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,8 +35,10 @@ const App: () => Node = () => {
           screenOptions={{
             headerShown: false
           }}>
-          <Stack.Screen name="ChooseLanguage" component={ChooseLanguage}/>
           <Stack.Screen name="Main" component={Main}/>
+          <Stack.Screen name="Profile" component={Profile}/>
+          <Stack.Screen name="Options" component={Options}/>
+          <Stack.Screen name="ChooseLanguage" component={ChooseLanguage}/>
           <Stack.Screen
             name="Auth"
             component={Auth}

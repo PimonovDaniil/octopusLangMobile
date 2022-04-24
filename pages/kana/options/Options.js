@@ -1,10 +1,41 @@
 import React, {useEffect} from 'react';
 import type {Node} from 'react';
-import {Button, Text, View} from 'react-native';
+import {Button, Text, View, ScrollView} from 'react-native';
 import {styles} from "./styles";
+import {TouchableWithoutFeedback} from "react-native";
+import {TouchableOpacity} from "react-native";
 
-const Options: () => Node = ({ navigation }) => {
+const Options: () => Node = ({navigation}) => {
+  const [isHiragana, setIsHiragana] = React.useState(true);
+  const hiragana = ['あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ',
+    'た', 'ち', 'つ', 'て', 'と', 'な', 'に', 'ぬ', 'ね', 'の', 'は', 'ひ', 'ふ', 'へ', 'ほ', 'ま', 'み', 'む',
+    'め', 'も', 'や', 'ゆ', 'よ', 'ら', 'り', 'る', 'れ', 'ろ', 'わ', 'を', 'ん']
 
+  const listRenderer = (list) => {
+    const lineRenderer = (list, num) => {
+      let content = [];
+      for (let i = num; i < num+5; i++) {
+        if(i>= list.length) break;
+        content.push(<View key={i} style={styles.symvol}><View style={styles.symvol2}><Text>{list[i]}</Text></View></View>);
+      }
+      return(
+        <View style={{flexDirection:'row'}}>
+          {content}
+        </View>
+      )
+    }
+    let content = [];
+    for (let i = 0; i < list.length; i+=5) {
+      content.push(<View key={i} style={styles.line}>{lineRenderer(list, i)}</View>);
+    }
+    return (
+      <View>
+        <View style={styles.lineKana}>
+          {content}
+        </View>
+      </View>
+    )
+  }
   return (
     <View style={styles.main}>
       <View style={styles.header}>
@@ -13,31 +44,37 @@ const Options: () => Node = ({ navigation }) => {
       <View>
         <Text style={styles.namePageText}>Тренажёр азбуки</Text>
       </View>
-      <View style={styles.kana}>
-        <View style={styles.katakanaBox}>
-            <View style={styles.progressBar}/>
-            <View style={styles.cardText}>
-              <Text style={styles.headerCardText}>Хирагана</Text>
+      <View style={styles.kanaBox}>
+        <View style={styles.kanaSwitsher}>
+          <TouchableWithoutFeedback onPress={() =>
+            setIsHiragana(true)
+          }>
+            <View
+              style={[styles.hiraganaText, isHiragana ? {} : {borderBottomRightRadius: 16, backgroundColor: "#F0F0F0"}]}
+              onPress={() => {
+                alert("lol")
+              }}>
+              <Text>Хирагана</Text>
             </View>
-            <View style={styles.cardButtons}>
-                <View style={styles.cardButtonsTop}>
-                  <View style={styles.cardButtonsTopButton}>
-
-                  </View>
-                  <View style={styles.cardButtonsTopButton}>
-
-                  </View>
-                </View>
-                <View style={styles.cardButtonsBottom}>
-
-                </View>
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={() =>
+            setIsHiragana(false)
+          }>
+            <View
+              style={[styles.katakanaText, isHiragana ? {borderBottomLeftRadius: 16, backgroundColor: "#F0F0F0"} : {}]}>
+              <Text>Катакана</Text>
             </View>
+          </TouchableWithoutFeedback>
         </View>
-      </View>
-      <View style={styles.kana}>
-        <View style={styles.hiraganaBox}>
-
+        <View style={styles.progress}/>
+        <View style={styles.kanaResult}>
+          <ScrollView scrollEventThrottle={16}  showsVerticalScrollIndicator={false}>
+            {listRenderer(hiragana)}
+          </ScrollView>
         </View>
+        <TouchableOpacity style={styles.learnButton}>
+          <Text style={styles.learnText}>Учить</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.footer}/>
     </View>

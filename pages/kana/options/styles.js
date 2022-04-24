@@ -94,5 +94,25 @@ export const styles = StyleSheet.create({
   symvol2: {
     paddingTop: '35%',
     paddingBottom: '35%',
+  },
+  switchHeader: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  switchIndicate: {
+    flexDirection: "row",
+  },
+  firstButton: {
+    backgroundColor: '#C1CFE2',
+    height: 10,
+    width: 10,
+    borderRadius: 50,
+  },
+  secondButton: {
+    backgroundColor: '#C1CFE2',
+    height: 10,
+    width: 10,
+    borderRadius: 50,
+    marginLeft: 5,
   }
-});
+  });

@@ -35,9 +35,9 @@ const App: () => Node = () => {
           screenOptions={{
             headerShown: false
           }}>
+          <Stack.Screen name="Options" component={Options}/>
           <Stack.Screen name="Main" component={Main}/>
           <Stack.Screen name="Profile" component={Profile}/>
-          <Stack.Screen name="Options" component={Options}/>
           <Stack.Screen name="ChooseLanguage" component={ChooseLanguage}/>
           <Stack.Screen
             name="Auth"

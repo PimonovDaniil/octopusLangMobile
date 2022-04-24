@@ -114,5 +114,19 @@ export const styles = StyleSheet.create({
     width: 10,
     borderRadius: 50,
     marginLeft: 5,
+  },
+  lineSeparate: {
+    flex: 1,
+    backgroundColor: 'black',
+    height: 1,
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  groupName: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 5,
+    marginBottom: 5,
   }
   });

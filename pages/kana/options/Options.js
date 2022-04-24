@@ -4,7 +4,6 @@ import {Button, Text, View, ScrollView} from 'react-native';
 import {styles} from "./styles";
 import {TouchableWithoutFeedback} from "react-native";
 import {TouchableOpacity} from "react-native";
-import Swiper from 'react-native-swiper'
 import SwipeRender from "react-native-swipe-render";
 
 const Options: () => Node = ({navigation}) => {
@@ -13,6 +12,8 @@ const Options: () => Node = ({navigation}) => {
   const hiragana = ['あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ',
     'た', 'ち', 'つ', 'て', 'と', 'な', 'に', 'ぬ', 'ね', 'の', 'は', 'ひ', 'ふ', 'へ', 'ほ', 'ま', 'み', 'む',
     'め', 'も', 'や', 'ゆ', 'よ', 'ら', 'り', 'る', 'れ', 'ろ', 'わ', 'を', 'ん']
+  const hiraganaNigori = ['が','ぎ','ぐ','げ','ご','ざ','じ','ず','ぜ','ぞ','だ','ぢ','づ','で','ど','ば','び','ぶ','べ','ぼ']
+  const hiraganaHannogiri = ['ぱ','ぴ','ぷ','ぺ','ぽ']
 
   const listRenderer = (list) => {
     const lineRenderer = (list, num) => {
@@ -84,7 +85,26 @@ const Options: () => Node = ({navigation}) => {
             <SwipeRender index={0}  onIndexChanged={(index)=>setIsIndex(index)}>
               {listRenderer(hiragana)}
               <View key={99} style={{flex:1}}>
-                <Text style={styles.text}>Дополнительные</Text>
+                <View style={styles.groupName}>
+                  <View style={styles.lineSeparate}/>
+                  <View>
+                      <Text>Нигори</Text>
+                  </View>
+                  <View style={styles.lineSeparate}/>
+                </View>
+                <View>
+                  {listRenderer(hiraganaNigori)}
+                </View>
+                <View style={styles.groupName}>
+                  <View style={styles.lineSeparate}/>
+                  <View>
+                    <Text>Ханнигори</Text>
+                  </View>
+                  <View style={styles.lineSeparate}/>
+                </View>
+                <View>
+                  {listRenderer(hiraganaHannogiri)}
+                </View>
               </View>
             </SwipeRender>
           </ScrollView>

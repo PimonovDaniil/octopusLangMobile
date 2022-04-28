@@ -98,6 +98,7 @@ export const styles = StyleSheet.create({
   switchHeader: {
     alignItems: 'center',
     justifyContent: 'center',
+    paddingBottom: 10,
   },
   switchIndicate: {
     flexDirection: "row",

@@ -11,25 +11,26 @@ const Options: () => Node = ({navigation}) => {
   const [isIndex, setIsIndex] = React.useState(0);
   const hiragana = ['あ', 'い', 'う', 'え', 'お', 'か', 'き', 'く', 'け', 'こ', 'さ', 'し', 'す', 'せ', 'そ',
     'た', 'ち', 'つ', 'て', 'と', 'な', 'に', 'ぬ', 'ね', 'の', 'は', 'ひ', 'ふ', 'へ', 'ほ', 'ま', 'み', 'む',
-    'め', 'も', 'や', 'ゆ', 'よ', 'ら', 'り', 'る', 'れ', 'ろ', 'わ', 'を', 'ん']
-  const hiraganaNigori = ['が','ぎ','ぐ','げ','ご','ざ','じ','ず','ぜ','ぞ','だ','ぢ','づ','で','ど','ば','び','ぶ','べ','ぼ']
-  const hiraganaHannogiri = ['ぱ','ぴ','ぷ','ぺ','ぽ']
+    'め', 'も', 'や', 'ゆ', 'よ', ' ', ' ', 'ら', 'り', 'る', 'れ', 'ろ', 'わ', 'を', 'ん', ' ', ' ']
+  const hiraganaNigori = ['が', 'ぎ', 'ぐ', 'げ', 'ご', 'ざ', 'じ', 'ず', 'ぜ', 'ぞ', 'だ', 'ぢ', 'づ', 'で', 'ど', 'ば', 'び', 'ぶ', 'べ', 'ぼ']
+  const hiraganaHannogiri = ['ぱ', 'ぴ', 'ぷ', 'ぺ', 'ぽ']
 
   const listRenderer = (list) => {
     const lineRenderer = (list, num) => {
       let content = [];
-      for (let i = num; i < num+5; i++) {
-        if(i>= list.length) break;
-        content.push(<View key={i} style={styles.symvol}><View style={styles.symvol2}><Text>{list[i]}</Text></View></View>);
+      for (let i = num; i < num + 5; i++) {
+        if (i >= list.length) break;
+        content.push(<View key={i} style={styles.symvol}><View
+          style={styles.symvol2}><Text>{list[i]}</Text></View></View>);
       }
-      return(
-        <View style={{flexDirection:'row'}}>
+      return (
+        <View style={{flexDirection: 'row'}}>
           {content}
         </View>
       )
     }
     let content = [];
-    for (let i = 0; i < list.length; i+=5) {
+    for (let i = 0; i < list.length; i += 5) {
       content.push(<View key={i} style={styles.line}>{lineRenderer(list, i)}</View>);
     }
     return (
@@ -46,9 +47,8 @@ const Options: () => Node = ({navigation}) => {
       <View style={styles.header}>
         <Text style={styles.headerText}>Octopus</Text>
       </View>
-      <View>
-        <Text style={styles.namePageText}>Тренажёр азбуки</Text>
-      </View>
+
+
       <View style={styles.kanaBox}>
         <View style={styles.kanaSwitsher}>
           <TouchableWithoutFeedback onPress={() =>
@@ -73,41 +73,48 @@ const Options: () => Node = ({navigation}) => {
         </View>
         <View style={styles.progress}/>
         <View style={styles.kanaResult}>
-          <ScrollView scrollEventThrottle={16}  showsVerticalScrollIndicator={false}>
-            {/*{listRenderer(hiragana)}*/}
-            <View style={styles.switchHeader}>
-                <Text>{isIndex ? "Дополнительные" : "Основные"}</Text>
-                <View style={styles.switchIndicate}>
-                    <View style={[styles.firstButton, isIndex ? {} : {backgroundColor: '#34ACE0'}]}/>
-                    <View style={[styles.secondButton, isIndex ? {backgroundColor: '#34ACE0'} : {}]}/>
-                </View>
+          <View style={styles.switchHeader}>
+            <Text>{isIndex ? "Дополнительные" : "Основные"}</Text>
+            <View style={styles.switchIndicate}>
+              <View style={[styles.firstButton, isIndex ? {} : {backgroundColor: '#34ACE0'}]}/>
+              <View style={[styles.secondButton, isIndex ? {backgroundColor: '#34ACE0'} : {}]}/>
             </View>
-            <SwipeRender index={0}  onIndexChanged={(index)=>setIsIndex(index)}>
-              {listRenderer(hiragana)}
-              <View key={99} style={{flex:1}}>
-                <View style={styles.groupName}>
-                  <View style={styles.lineSeparate}/>
-                  <View>
+          </View>
+
+          {/*{listRenderer(hiragana)}*/}
+          <SwipeRender index={0} loadMinimal={true} loadMinimalSize={2} onIndexChanged={(index) => setIsIndex(index)}>
+            <View style={{marginTop: 10}}>
+              <ScrollView scrollEventThrottle={16} showsVerticalScrollIndicator={false}>
+                {listRenderer(hiragana)}
+              </ScrollView>
+            </View>
+            <View>
+              <ScrollView scrollEventThrottle={16} showsVerticalScrollIndicator={false}>
+                <View key={99} style={{flex: 1}}>
+                  <View style={styles.groupName}>
+                    <View style={styles.lineSeparate}/>
+                    <View>
                       <Text>Нигори</Text>
+                    </View>
+                    <View style={styles.lineSeparate}/>
                   </View>
-                  <View style={styles.lineSeparate}/>
-                </View>
-                <View>
-                  {listRenderer(hiraganaNigori)}
-                </View>
-                <View style={styles.groupName}>
-                  <View style={styles.lineSeparate}/>
                   <View>
-                    <Text>Ханнигори</Text>
+                    {listRenderer(hiraganaNigori)}
                   </View>
-                  <View style={styles.lineSeparate}/>
+                  <View style={styles.groupName}>
+                    <View style={styles.lineSeparate}/>
+                    <View>
+                      <Text>Ханнигори</Text>
+                    </View>
+                    <View style={styles.lineSeparate}/>
+                  </View>
+                  <View>
+                    {listRenderer(hiraganaHannogiri)}
+                  </View>
                 </View>
-                <View>
-                  {listRenderer(hiraganaHannogiri)}
-                </View>
-              </View>
-            </SwipeRender>
-          </ScrollView>
+              </ScrollView>
+            </View>
+          </SwipeRender>
         </View>
         <TouchableOpacity style={styles.learnButton}>
           <Text style={styles.learnText}>Учить</Text>
@@ -115,7 +122,8 @@ const Options: () => Node = ({navigation}) => {
       </View>
       <View style={styles.footer}/>
     </View>
-  );
+  )
+    ;
 };
 
 export default Options;

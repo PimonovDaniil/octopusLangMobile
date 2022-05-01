@@ -1,14 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import type {Node} from 'react';
 import {Text, View} from 'react-native';
 import {styles} from "./styles";
 import {vw} from 'react-native-expo-viewport-units';
 import {CloseImage} from "../../../assets/images/close";
 import {SvgXml} from "react-native-svg";
+import {axios} from "../../../endpoints/axios";
 
 
 const SelectionModule: () => Node = ({navigation}) => {
-
   return (
     <View style={styles.main}>
       <View style={styles.header}>

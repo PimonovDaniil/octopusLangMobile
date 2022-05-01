@@ -2796,7 +2796,12 @@ expo-modules-core@0.6.5:
     compare-versions "^3.4.0"
     invariant "^2.2.4"
 
-expo-splash-screen@~0.14.0:
+expo-secure-store@~11.1.0:
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/expo-secure-store/-/expo-secure-store-11.1.1.tgz#16f727f56f5b0eef9817fc0d64d79be26f8a34a8"
+  integrity sha512-pCajYYoZbl8IORxXw83SLUsWlU6a+HmjJZP8oiSvkG1KnZ5gPepiAMRRmcFUApYXBgiOvKRGOBEUfVwmR7yO4A==
+
+expo-splash-screen@~0.14.0, expo-splash-screen@~0.14.1:
   version "0.14.2"
   resolved "https://registry.npmjs.org/expo-splash-screen/-/expo-splash-screen-0.14.2.tgz"
   integrity sha512-X25D/0E2AWEFGgDWIVXZ5Bl7FhYk7TgVhEWvplBqrDY7G7vg5l1aoH6PelOQINWPsa1dcRyA7REdN2ltO+0LAw==
@@ -4820,7 +4825,7 @@ react-native-dotenv@^3.3.1:
 
 react-native-expo-viewport-units@^0.0.8:
   version "0.0.8"
-  resolved "https://registry.yarnpkg.com/react-native-expo-viewport-units/-/react-native-expo-viewport-units-0.0.8.tgz#13d9bcb3e95abcc55f800cfa5f3e4b571860e726"
+  resolved "https://registry.npmjs.org/react-native-expo-viewport-units/-/react-native-expo-viewport-units-0.0.8.tgz"
   integrity sha512-duAEaoVF41puhXhpI1BuDFc2AMBqfWT2S74EJqaQ5dnuZVhsP++AExJwVo7/2/lHmb6+gYWGyBZOxxPCMWe+Ew==
 
 react-native-keyboard-listener@^1.1.0:
@@ -4829,6 +4834,16 @@ react-native-keyboard-listener@^1.1.0:
   integrity sha512-39oarw+f1lfxJkYJkKyxdAqhRsaxNK/mSNK5yvdB62RZxCWKlvnUP1EClWYGo6IrxA/v9PI8BqWHGE+MPQK1/w==
   dependencies:
     prop-types "^15.6.0"
+
+react-native-mmkv-storage@^0.7.2:
+  version "0.7.2"
+  resolved "https://registry.npmjs.org/react-native-mmkv-storage/-/react-native-mmkv-storage-0.7.2.tgz"
+  integrity sha512-iQxuA7vndWTIbcINTay4QeHNsZnC7cHQRYiPHQjgG7eKoIMGmr622FvMwPG36hhuDB3F3zUQBA/Ifxj1ulsK2Q==
+
+react-native-mmkv@^2.3.3:
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/react-native-mmkv/-/react-native-mmkv-2.3.3.tgz#ca0916e3dfb3e420fa27de526e53d9e391e3c9a1"
+  integrity sha512-bfBsIivEnr+OAxS2tWRqzyaDLlw9ZBGrbiuifO7wRtq1J5rNwkiKfSwTYBNLe23dzpl8pvSIUYgDrvmRnXTAhA==
 
 react-native-modal-loader@^1.3.0:
   version "1.3.0"

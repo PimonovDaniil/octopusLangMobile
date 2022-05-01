@@ -8,6 +8,7 @@ import SwipeRender from "react-native-swipe-render";
 import {vw} from 'react-native-expo-viewport-units';
 import {DoneImage} from "../../../assets/images/done";
 import {SvgXml} from "react-native-svg";
+import * as SecureStore from 'expo-secure-store';
 
 
 const Options: () => Node = ({navigation}) => {
@@ -15,7 +16,7 @@ const Options: () => Node = ({navigation}) => {
   const [isNigory, setIsNigory] = React.useState(true);
   const [isHannagory, setIsHannagory] = React.useState(true);
   const [isIndex, setIsIndex] = React.useState(0);
-  let kanaData = {
+  const [kanaData, setKanaData] = React.useState({
     hiragana: [['あ','а', 0], ['い', 'и', 0], ['う', 'у', 0], ['え', 'э', 0], ['お', 'о', 0], ['か', 'ка', 0], ['き', 'ки', 0],
       ['く', 'ку', 0],['け', 'кэ', 0], ['こ', 'ко', 0], ['さ', 'са', 0], ['し', 'си', 0], ['す', 'су', 0], ['せ', 'сэ', 0], ['そ', 'со', 0],
       ['た', 'та', 0], ['ち', 'ти', 0], ['つ', 'цу', 0], ['て', 'тэ', 0], ['と', 'то', 0], ['な', 'на', 0], ['に', 'ни', 0], ['ぬ', 'ну', 0],
@@ -38,7 +39,48 @@ const Options: () => Node = ({navigation}) => {
       ['バ','ба', 0], ['ビ','би', 0], ['ブ','бу', 0], ['ベ','бэ', 0], ['ボ','бо', 0]],
     hiraganaHannogiri: [['ぱ','па', 0], ['ぴ','пи', 0], ['ぷ','пу', 0], ['ぺ','пэ', 0], ['ぽ','по', 0]],
     katakanaHannogiri: [['パ','па', 0], ['ピ','пи', 0], ['プ','пу', 0], ['ペ','пэ', 0], ['ポ','по', 0]],
-  };
+  });
+
+  async function save(key, value) {
+    await SecureStore.setItemAsync(key, JSON.stringify(value));
+  }
+
+  async function getValueFor(key) {
+    let result = JSON.parse(await SecureStore.getItemAsync(key));
+    if (result) {
+      alert("🔐 Here's your value 🔐 \n" + result);
+    } else {
+      alert('No values stored under that key.');
+    }
+  }
+
+  useEffect(async () => {
+    let hiragana = JSON.parse(await SecureStore.getItemAsync("hiragana"));
+    let katakana = JSON.parse(await SecureStore.getItemAsync("katakana"));
+    let hiraganaNigori = JSON.parse(await SecureStore.getItemAsync("hiraganaNigori"));
+    let katakanaNigori = JSON.parse(await SecureStore.getItemAsync("katakanaNigori"));
+    let hiraganaHannogiri = JSON.parse(await SecureStore.getItemAsync("hiraganaHannogiri"));
+    let katakanaHannogiri = JSON.parse(await SecureStore.getItemAsync("katakanaHannogiri"));
+    if(hiragana && katakana && hiraganaNigori && katakanaNigori &&
+      hiraganaHannogiri && katakanaHannogiri){
+      setKanaData({
+        hiragana: hiragana,
+        katakana: katakana,
+        hiraganaNigori: hiraganaNigori,
+        katakanaNigori: katakanaNigori,
+        hiraganaHannogiri: hiraganaHannogiri,
+        katakanaHannogiri: katakanaHannogiri,
+      });
+    }else{
+      await SecureStore.setItemAsync("hiragana", JSON.stringify(kanaData.hiragana));
+      await SecureStore.setItemAsync("katakana", JSON.stringify(kanaData.katakana));
+      await SecureStore.setItemAsync("hiraganaNigori", JSON.stringify(kanaData.hiraganaNigori));
+      await SecureStore.setItemAsync("katakanaNigori", JSON.stringify(kanaData.katakanaNigori));
+      await SecureStore.setItemAsync("hiraganaHannogiri", JSON.stringify(kanaData.hiraganaHannogiri));
+      await SecureStore.setItemAsync("katakanaHannogiri", JSON.stringify(kanaData.katakanaHannogiri));
+
+    }
+  });
 
   const listRenderer = (list) => {
     const lineRenderer = (list, num) => {
@@ -47,9 +89,9 @@ const Options: () => Node = ({navigation}) => {
         if (i >= list.length) break;
 
         content.push(<View key={i}
-                           style={[styles.symvol, list[i] === ' ' ? {backgroundColor: '#e5e5e5'} : {backgroundColor: '#D4F4D3'}]}><View
+                           style={[styles.symvol, list[i][0] === ' ' ? {backgroundColor: '#e5e5e5'} : (list[i][2] < 3 ? {backgroundColor: '#FFBDBD'} : {backgroundColor: '#D4F4D3'})]}><View
           style={[styles.symvol2, {height: vw(15)}]}><Text
-          style={styles.kanaLearnSymbolText}>{list[i]}</Text></View></View>);
+          style={styles.kanaLearnSymbolText}>{[list[i][0],' ',list[i][2]]}</Text></View></View>);
       }
       return (
         <View style={{flexDirection: 'row'}}>
@@ -146,7 +188,7 @@ const Options: () => Node = ({navigation}) => {
             </View>
           </SwipeRender>
         </View>
-        <TouchableOpacity style={styles.learnButton}>
+        <TouchableOpacity style={styles.learnButton} onPress={()=>alert("lol")}>
           <Text style={styles.kanaLearnButtonText}>Учить</Text>
         </TouchableOpacity>
       </View>

@@ -18,6 +18,7 @@ import * as Font from 'expo-font'
 import AppLoading from 'expo-app-loading'
 import Profile from "./pages/profile/Profile";
 import Options from "./pages/kana/options/Options";
+import SelectionModule from "./pages/kana/SelectionModule/SelectionModule";
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +36,7 @@ const App: () => Node = () => {
           screenOptions={{
             headerShown: false
           }}>
+          <Stack.Screen name="SelectionModule" component={SelectionModule}/>
           <Stack.Screen name="Options" component={Options}/>
           <Stack.Screen name="Main" component={Main}/>
           <Stack.Screen name="Profile" component={Profile}/>

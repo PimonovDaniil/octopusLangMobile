@@ -151,8 +151,7 @@ const Options: () => Node = ({navigation}) => {
       </View>
       <View style={styles.footer}/>
     </View>
-  )
-    ;
+  );
 };
 
 export default Options;

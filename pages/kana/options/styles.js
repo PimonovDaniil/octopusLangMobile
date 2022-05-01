@@ -33,12 +33,21 @@ export const styles = StyleSheet.create({
   kanaBox: {
     flex: 1,
     backgroundColor: '#FFFFFF',
-    margin: 20,
+    margin: 10,
     borderRadius: 16,
   },
   kanaSwitsher: {
     height: 50,
     flexDirection: 'row',
+  },
+  checkedBox: {
+    position: 'absolute',
+    right: 10,
+  },
+  nigoryCheckbox: {
+  },
+  uncheckedBox: {
+
   },
   hiraganaText: {
     flex: 1,
@@ -47,15 +56,43 @@ export const styles = StyleSheet.create({
     borderTopLeftRadius: 16,
   },
   katakanaText: {
+    fontFamily: 'NunitoBold',
+    fontSize: 18,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     borderTopRightRadius: 16,
   },
+  kanaHeaderText: {
+    fontFamily: 'NunitoBold',
+    fontSize: 18,
+  },
+  kanaLittleHeaderText: {
+    fontFamily: 'NunitoBold',
+    fontSize: 16,
+  },
+  kanaLittleSeparateText: {
+    fontFamily: 'NunitoBold',
+    fontSize: 14,
+  },
+  kanaLearnButtonText: {
+    fontFamily: 'NunitoBold',
+    color: 'white',
+    fontSize: 22,
+  },
+
+  kanaLearnSymbolText: {
+  fontFamily: 'NunitoBold',
+    color: '#444A51',
+    fontSize: 18,
+},
   progress: {
     backgroundColor: '#C1CFE2',
     height: 15,
-    margin: 20,
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 10,
+    marginRight: 10,
     borderRadius: 10,
   },
   kanaResult: {
@@ -63,41 +100,39 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F1FAFF",
     borderRadius: 16,
-    marginLeft: 20,
-    marginRight: 20,
+    marginLeft: 10,
+    marginRight: 10,
   },
   learnButton: {
-    flex: 0.15,
-    margin: 20,
+    flex: 0.12,
+    margin: 10,
     backgroundColor: "#34ACE0",
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  learnText: {
-    color: 'white',
-  },
-  lineKana: {
 
-  },
-  line: {
-
-  },
   symvol: {
-    backgroundColor: '#FFBDBD',
+    backgroundColor: '#D4F4D3',
     margin:3,
     flex: 0.2,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 16,
+
+
   },
   symvol2: {
-    paddingTop: '35%',
-    paddingBottom: '35%',
+    //paddingTop: '25%',
+    // height: 1*vw,
+   // paddingBottom: '25%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   switchHeader: {
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 5,
     paddingBottom: 10,
   },
   switchIndicate: {
@@ -117,13 +152,16 @@ export const styles = StyleSheet.create({
     marginLeft: 5,
   },
   lineSeparate: {
-    flex: 1,
+
     backgroundColor: 'black',
     height: 1,
     marginLeft: 10,
     marginRight: 10,
   },
   groupName: {
+    backgroundColor: "#2F80E9",
+    borderRadius: 16,
+    height: 22,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

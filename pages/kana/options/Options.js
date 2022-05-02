@@ -29,18 +29,18 @@ const Options: () => Node = ({navigation}) => {
   const isIndex = useStore(isIndex2);
   const kanaData = useStore(kanaData2);
 
-  async function save(key, value) {
-    await SecureStore.setItemAsync(key, JSON.stringify(value));
-  }
-
-  async function getValueFor(key) {
-    let result = JSON.parse(await SecureStore.getItemAsync(key));
-    if (result) {
-      alert("🔐 Here's your value 🔐 \n" + result);
-    } else {
-      alert('No values stored under that key.');
-    }
-  }
+  // async function save(key, value) {
+  //   await SecureStore.setItemAsync(key, JSON.stringify(value));
+  // }
+  //
+  // async function getValueFor(key) {
+  //   let result = JSON.parse(await SecureStore.getItemAsync(key));
+  //   if (result) {
+  //     alert("🔐 Here's your value 🔐 \n" + result);
+  //   } else {
+  //     alert('No values stored under that key.');
+  //   }
+  // }
 
   const learnHandler = () => {
     navigation.navigate('SelectionModule');
@@ -182,9 +182,15 @@ const Options: () => Node = ({navigation}) => {
             </View>
           </SwipeRender>
         </View>
-        <TouchableOpacity style={styles.learnButton} onPress={() => learnHandler()}>
-          <Text style={styles.kanaLearnButtonText}>Учить</Text>
-        </TouchableOpacity>
+        {(isIndex!==0 && isHannagory===false && isNigory===false ) ? (
+          <View style={[styles.learnButton, {backgroundColor: "#F5F5F5"}]}>
+            <Text style={styles.kanaLearnButtonText}>Учить</Text>
+          </View>
+        ) :
+          <TouchableOpacity style={styles.learnButton} onPress={() => learnHandler()}>
+            <Text style={styles.kanaLearnButtonText}>Учить</Text>
+          </TouchableOpacity>
+        }
       </View>
       <View style={styles.footer}/>
     </View>

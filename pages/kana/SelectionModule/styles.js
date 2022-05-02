@@ -30,8 +30,20 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   progress: {
-    backgroundColor: '#FFFFFF',
+    marginRight: 23,
+    marginTop: 23,
+    marginBottom: 23,
+    borderRadius: 16,
     flex: 1,
+    backgroundColor: '#FFFFFF'
+  },
+  progress1: {
+    marginTop: 23,
+    marginBottom: 23,
+    backgroundColor: '#34ACE0',
+    zIndex: 0,
+  },
+  progress2: {
     marginRight: 23,
     marginTop: 23,
     marginBottom: 23,

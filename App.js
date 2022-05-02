@@ -38,7 +38,6 @@ const App: () => Node = () => {
           }}>
           <Stack.Screen name="Options" component={Options}/>
           <Stack.Screen name="SelectionModule" component={SelectionModule}/>
-
           <Stack.Screen name="Main" component={Main}/>
           <Stack.Screen name="Profile" component={Profile}/>
           <Stack.Screen name="ChooseLanguage" component={ChooseLanguage}/>

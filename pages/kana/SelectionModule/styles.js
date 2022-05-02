@@ -25,6 +25,10 @@ export const styles = StyleSheet.create({
   closeWrapper: {
     margin: 21,
   },
+  footer:{
+    flex:0.1,
+    backgroundColor: 'white',
+  },
   progress: {
     backgroundColor: '#FFFFFF',
     flex: 1,
@@ -76,5 +80,18 @@ export const styles = StyleSheet.create({
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
+  continue: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex:0.1,
+    backgroundColor: '#34ACE0',
+    margin: 20,
+    borderRadius: 16,
+  },
+  continueText: {
+    fontFamily: 'NunitoBold',
+    fontSize: 20,
+    color: 'white',
+  },
 });

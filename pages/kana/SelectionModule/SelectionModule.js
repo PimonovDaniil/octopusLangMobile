@@ -5,19 +5,29 @@ import {styles} from "./styles";
 import {vw} from 'react-native-expo-viewport-units';
 import {CloseImage} from "../../../assets/images/close";
 import {SvgXml} from "react-native-svg";
-import {axios} from "../../../endpoints/axios";
+import {TouchableWithoutFeedback} from "react-native";
+import {useStore} from "effector-react";
+import {isHannagory2, isHiragana2, isIndex2, isNigory2, kanaData2} from "../../../store/kanaData2";
 
 
 const SelectionModule: () => Node = ({navigation}) => {
+  const isHiragana = useStore(isHiragana2);
+  const isNigory = useStore(isNigory2);
+  const isHannagory = useStore(isHannagory2);
+  const isIndex = useStore(isIndex2);
+  const kanaData = useStore(kanaData2);
+
   return (
     <View style={styles.main}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Octopus</Text>
       </View>
       <View style={styles.progressHeader}>
-        <View style={styles.closeWrapper}>
-          <SvgXml xml={CloseImage}/>
-        </View>
+        <TouchableWithoutFeedback onPress={()=>navigation.navigate('Options')}>
+          <View style={styles.closeWrapper}>
+            <SvgXml xml={CloseImage}/>
+          </View>
+        </TouchableWithoutFeedback>
         <View style={styles.progress}/>
       </View>
       <View style={styles.textWrapperDiscription}>
@@ -48,6 +58,10 @@ const SelectionModule: () => Node = ({navigation}) => {
           </View>
         </View>
       </View>
+      <View style={styles.continue}>
+        <Text style={styles.continueText}>Продолжить</Text>
+      </View>
+      <View style={styles.footer}/>
     </View>
   );
 };

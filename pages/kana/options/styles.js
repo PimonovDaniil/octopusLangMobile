@@ -7,12 +7,12 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F8F8F8",
   },
-  footer:{
-    flex:0.1,
+  footer: {
+    flex: 0.1,
     backgroundColor: 'white',
   },
   headerText: {
-    fontSize:28,
+    fontSize: 28,
     marginTop: 10,
     marginLeft: 20,
     fontFamily: 'NunitoBold',
@@ -44,11 +44,8 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     right: 10,
   },
-  nigoryCheckbox: {
-  },
-  uncheckedBox: {
-
-  },
+  nigoryCheckbox: {},
+  uncheckedBox: {},
   hiraganaText: {
     flex: 1,
     alignItems: 'center',
@@ -82,10 +79,10 @@ export const styles = StyleSheet.create({
   },
 
   kanaLearnSymbolText: {
-  fontFamily: 'NunitoBold',
+    fontFamily: 'NunitoBold',
     color: '#444A51',
     fontSize: 18,
-},
+  },
   progress: {
     backgroundColor: '#C1CFE2',
     height: 15,
@@ -114,18 +111,16 @@ export const styles = StyleSheet.create({
 
   symvol: {
     backgroundColor: '#D4F4D3',
-    margin:3,
+    margin: 3,
     flex: 0.2,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 16,
-
-
   },
   symvol2: {
     //paddingTop: '25%',
     // height: 1*vw,
-   // paddingBottom: '25%',
+    // paddingBottom: '25%',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -168,4 +163,4 @@ export const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: 5,
   }
-  });
+});

@@ -29,19 +29,6 @@ const Options: () => Node = ({navigation}) => {
   const isIndex = useStore(isIndex2);
   const kanaData = useStore(kanaData2);
 
-  // async function save(key, value) {
-  //   await SecureStore.setItemAsync(key, JSON.stringify(value));
-  // }
-  //
-  // async function getValueFor(key) {
-  //   let result = JSON.parse(await SecureStore.getItemAsync(key));
-  //   if (result) {
-  //     alert("🔐 Here's your value 🔐 \n" + result);
-  //   } else {
-  //     alert('No values stored under that key.');
-  //   }
-  // }
-
   const learnHandler = () => {
     navigation.navigate('SelectionModule');
   }
@@ -85,7 +72,7 @@ const Options: () => Node = ({navigation}) => {
         content.push(<View key={i}
                            style={[styles.symvol, list[i][0] === ' ' ? {backgroundColor: '#e5e5e5'} : (list[i][2] < 3 ? {backgroundColor: '#FFBDBD'} : {backgroundColor: '#D4F4D3'})]}><View
           style={[styles.symvol2, {height: vw(15)}]}><Text
-          style={styles.kanaLearnSymbolText}>{[list[i][0], ' ', list[i][2]]}</Text></View></View>);
+          style={styles.kanaLearnSymbolText}>{[list[i][0]]}</Text></View></View>);
       }
       return (
         <View style={{flexDirection: 'row'}}>
@@ -111,7 +98,6 @@ const Options: () => Node = ({navigation}) => {
       <View style={styles.header}>
         <Text style={styles.headerText}>Octopus</Text>
       </View>
-
 
       <View style={styles.kanaBox}>
         <View style={styles.kanaSwitsher}>
@@ -182,6 +168,7 @@ const Options: () => Node = ({navigation}) => {
             </View>
           </SwipeRender>
         </View>
+
         {(isIndex!==0 && isHannagory===false && isNigory===false ) ? (
           <View style={[styles.learnButton, {backgroundColor: "#F5F5F5"}]}>
             <Text style={styles.kanaLearnButtonText}>Учить</Text>

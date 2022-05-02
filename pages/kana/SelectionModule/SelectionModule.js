@@ -19,7 +19,8 @@ const SelectionModule: () => Node = ({navigation}) => {
   const kanaData = useStore(kanaData2);
 
   const [results, setResults] = React.useState([]);
-  const [progress, setProgress] = React.useState(0);
+  const [showResults, setShowResults] = React.useState(false);
+  const [rightAnswers, setRightAnswers] = React.useState(0);
   const [mainKana, setMainKana] = React.useState("");
   const [variant1, setVariant1] = React.useState("");
   const [variant2, setVariant2] = React.useState("");
@@ -29,6 +30,34 @@ const SelectionModule: () => Node = ({navigation}) => {
   const [buttonRight, setButtonRight] = React.useState([false, false, false, false]);
   const [buttonWrong, setButtonWrong] = React.useState([false, false, false, false]);
   const [continueState, setContinueState] = React.useState(0);
+
+  const listRenderer = (list) => {
+    const lineRenderer = (list, num) => {
+      let content = [];
+      for (let i = num; i < num + 3; i++) {
+        if (i >= list.length) break;
+
+        content.push(<View key={i}
+                           style={[styles.symvol, list[i][0] === ' ' ? {backgroundColor: '#e5e5e5'} : (list[i][1] ? {backgroundColor: '#D4F4D3'} : {backgroundColor: '#FFBDBD'})]}><View
+          style={[styles.symvol2, {height: vw(20)}]}><Text
+          style={styles.kanaLearnSymbolText}>{list[i][0]}</Text></View></View>);
+      }
+      return (
+        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          {content}
+        </View>
+      )
+    }
+    let content = [];
+    for (let i = 0; i < list.length; i += 3) {
+      content.push(<View key={i} style={styles.line}>{lineRenderer(list, i)}</View>);
+    }
+    return (
+      <View key={98}>
+        {content}
+      </View>
+    )
+  }
 
   async function save() {
     await SecureStore.setItemAsync("hiragana", JSON.stringify(kanaData.hiragana));
@@ -40,148 +69,158 @@ const SelectionModule: () => Node = ({navigation}) => {
   }
 
   const continueHandler = () => {
-    if (continueState === 0) {
-      let data = [...kanaData.hiragana, ...kanaData.katakana, ...kanaData.hiraganaNigori,
-        ...kanaData.katakanaNigori, ...kanaData.hiraganaHannogiri, ...kanaData.katakanaHannogiri]
-      data = data.filter((item) => {
-        return item[0] === mainKana
-      })[0]
-      let memory = results;
-      if (buttonPress[0]) {
+    if (showResults) {
+      navigation.navigate('Options', {"flag": true});
+    } else {
+      if (continueState === 0) {
+        let data = [...kanaData.hiragana, ...kanaData.katakana, ...kanaData.hiraganaNigori,
+          ...kanaData.katakanaNigori, ...kanaData.hiraganaHannogiri, ...kanaData.katakanaHannogiri]
+        data = data.filter((item) => {
+          return item[0] === mainKana
+        })[0]
+        let memory = results;
+        if (buttonPress[0]) {
+          if (variant1 === data[1]) {
+            memory.push([mainKana, true])
+            setResults(memory)
+          } else {
+            memory.push([mainKana, false])
+            setResults(memory)
+          }
+        } else if (buttonPress[1]) {
+          if (variant2 === data[1]) {
+            memory.push([mainKana, true])
+            setResults(memory)
+          } else {
+            memory.push([mainKana, false])
+            setResults(memory)
+          }
+        } else if (buttonPress[2]) {
+          if (variant3 === data[1]) {
+            memory.push([mainKana, true])
+            setResults(memory)
+          } else {
+            memory.push([mainKana, false])
+            setResults(memory)
+          }
+        } else if (buttonPress[3]) {
+          if (variant4 === data[1]) {
+            memory.push([mainKana, true])
+            setResults(memory)
+          } else {
+            memory.push([mainKana, false])
+            setResults(memory)
+          }
+        }
+        if (results[results.length - 1][1]) {
+          setRightAnswers(rightAnswers + 1);
+        }
+        let memKanaData = kanaData;
+        for (let i = 0; i < memKanaData.hiragana.length; i++) {
+          if (memKanaData.hiragana[i][0] === mainKana) {
+            if (results[results.length - 1][1]) {
+              if (memKanaData.hiragana[i][2] < 3) {
+                memKanaData.hiragana[i][2] += 1;
+              }
+            } else {
+              if (memKanaData.hiragana[i][2] > 0) {
+                memKanaData.hiragana[i][2] -= 1;
+              }
+            }
+          }
+        }
+        for (let i = 0; i < memKanaData.katakana.length; i++) {
+          if (memKanaData.katakana[i][0] === mainKana) {
+            if (results[results.length - 1][1]) {
+              if (memKanaData.katakana[i][2] < 3) {
+                memKanaData.katakana[i][2] += 1;
+              }
+            } else {
+              if (memKanaData.katakana[i][2] > 0) {
+                memKanaData.katakana[i][2] -= 1;
+              }
+            }
+          }
+        }
+        for (let i = 0; i < memKanaData.hiraganaNigori.length; i++) {
+          if (memKanaData.hiraganaNigori[i][0] === mainKana) {
+            if (results[results.length - 1][1]) {
+              if (memKanaData.hiraganaNigori[i][2] < 3) {
+                memKanaData.hiraganaNigori[i][2] += 1;
+              }
+            } else {
+              if (memKanaData.hiraganaNigori[i][2] > 0) {
+                memKanaData.hiraganaNigori[i][2] -= 1;
+              }
+            }
+          }
+        }
+        for (let i = 0; i < memKanaData.katakanaNigori.length; i++) {
+          if (memKanaData.katakanaNigori[i][0] === mainKana) {
+            if (results[results.length - 1][1]) {
+              if (memKanaData.katakanaNigori[i][2] < 3) {
+                memKanaData.katakanaNigori[i][2] += 1;
+              }
+            } else {
+              if (memKanaData.katakanaNigori[i][2] > 0) {
+                memKanaData.katakanaNigori[i][2] -= 1;
+              }
+            }
+          }
+        }
+        for (let i = 0; i < memKanaData.hiraganaHannogiri.length; i++) {
+          if (memKanaData.hiraganaHannogiri[i][0] === mainKana) {
+            if (results[results.length - 1][1]) {
+              if (memKanaData.hiraganaHannogiri[i][2] < 3) {
+                memKanaData.hiraganaHannogiri[i][2] += 1;
+              }
+            } else {
+              if (memKanaData.hiraganaHannogiri[i][2] > 0) {
+                memKanaData.hiraganaHannogiri[i][2] -= 1;
+              }
+            }
+          }
+        }
+        for (let i = 0; i < memKanaData.katakanaHannogiri.length; i++) {
+          if (memKanaData.katakanaHannogiri[i][0] === mainKana) {
+            if (results[results.length - 1][1]) {
+              if (memKanaData.katakanaHannogiri[i][2] < 3) {
+                memKanaData.katakanaHannogiri[i][2] += 1;
+              }
+            } else {
+              if (memKanaData.katakanaHannogiri[i][2] > 0) {
+                memKanaData.katakanaHannogiri[i][2] -= 1;
+              }
+            }
+          }
+        }
+        save();
+        setKanaData2(memKanaData)
         if (variant1 === data[1]) {
-          memory.push([mainKana, true])
-          setResults(memory)
-        } else {
-          memory.push([mainKana, false])
-          setResults(memory)
+          setButtonRight([true, false, false, false]);
+        } else if (variant2 === data[1]) {
+          setButtonRight([false, true, false, false]);
+        } else if (variant3 === data[1]) {
+          setButtonRight([false, false, true, false]);
+        } else if (variant4 === data[1]) {
+          setButtonRight([false, false, false, true]);
         }
-      } else if (buttonPress[1]) {
-        if (variant2 === data[1]) {
-          memory.push([mainKana, true])
-          setResults(memory)
-        } else {
-          memory.push([mainKana, false])
-          setResults(memory)
+        if (results[results.length - 1][1] === false) {
+          setButtonWrong(buttonPress);
         }
-      } else if (buttonPress[2]) {
-        if (variant3 === data[1]) {
-          memory.push([mainKana, true])
-          setResults(memory)
-        } else {
-          memory.push([mainKana, false])
-          setResults(memory)
+        console.log(results);
+        setButtonPress([false, false, false, false]);
+        setContinueState(1);
+      } else if (continueState === 1) {
+        setButtonPress([false, false, false, false]);
+        setButtonRight([false, false, false, false]);
+        setButtonWrong([false, false, false, false]);
+        setContinueState(0);
+        if (results.length >= 12) {
+          setShowResults(true);
         }
-      } else if (buttonPress[3]) {
-        if (variant4 === data[1]) {
-          memory.push([mainKana, true])
-          setResults(memory)
-        } else {
-          memory.push([mainKana, false])
-          setResults(memory)
-        }
+        setVariants();
       }
-      let memKanaData = kanaData;
-      for(let i = 0; i < memKanaData.hiragana.length; i++){
-        if(memKanaData.hiragana[i][0] === mainKana){
-          if(results[results.length-1][1]){
-            if(memKanaData.hiragana[i][2]<3){
-              memKanaData.hiragana[i][2]+=1;
-            }
-          }else{
-            if(memKanaData.hiragana[i][2]>0){
-              memKanaData.hiragana[i][2]-=1;
-            }
-          }
-        }
-      }
-      for(let i = 0; i < memKanaData.katakana.length; i++){
-        if(memKanaData.katakana[i][0] === mainKana){
-          if(results[results.length-1][1]){
-            if(memKanaData.katakana[i][2]<3){
-              memKanaData.katakana[i][2]+=1;
-            }
-          }else{
-            if(memKanaData.katakana[i][2]>0){
-              memKanaData.katakana[i][2]-=1;
-            }
-          }
-        }
-      }
-      for(let i = 0; i < memKanaData.hiraganaNigori.length; i++){
-        if(memKanaData.hiraganaNigori[i][0] === mainKana){
-          if(results[results.length-1][1]){
-            if(memKanaData.hiraganaNigori[i][2]<3){
-              memKanaData.hiraganaNigori[i][2]+=1;
-            }
-          }else{
-            if(memKanaData.hiraganaNigori[i][2]>0){
-              memKanaData.hiraganaNigori[i][2]-=1;
-            }
-          }
-        }
-      }
-      for(let i = 0; i < memKanaData.katakanaNigori.length; i++){
-        if(memKanaData.katakanaNigori[i][0] === mainKana){
-          if(results[results.length-1][1]){
-            if(memKanaData.katakanaNigori[i][2]<3){
-              memKanaData.katakanaNigori[i][2]+=1;
-            }
-          }else{
-            if(memKanaData.katakanaNigori[i][2]>0){
-              memKanaData.katakanaNigori[i][2]-=1;
-            }
-          }
-        }
-      }
-      for(let i = 0; i < memKanaData.hiraganaHannogiri.length; i++){
-        if(memKanaData.hiraganaHannogiri[i][0] === mainKana){
-          if(results[results.length-1][1]){
-            if(memKanaData.hiraganaHannogiri[i][2]<3){
-              memKanaData.hiraganaHannogiri[i][2]+=1;
-            }
-          }else{
-            if(memKanaData.hiraganaHannogiri[i][2]>0){
-              memKanaData.hiraganaHannogiri[i][2]-=1;
-            }
-          }
-        }
-      }
-      for(let i = 0; i < memKanaData.katakanaHannogiri.length; i++){
-        if(memKanaData.katakanaHannogiri[i][0] === mainKana){
-          if(results[results.length-1][1]){
-            if(memKanaData.katakanaHannogiri[i][2]<3){
-              memKanaData.katakanaHannogiri[i][2]+=1;
-            }
-          }else{
-            if(memKanaData.katakanaHannogiri[i][2]>0){
-              memKanaData.katakanaHannogiri[i][2]-=1;
-            }
-          }
-        }
-      }
-      save();
-      setKanaData2(memKanaData)
-      if (variant1 === data[1]) {
-        setButtonRight([true, false, false, false]);
-      } else if (variant2 === data[1]) {
-        setButtonRight([false, true, false, false]);
-      } else if (variant3 === data[1]) {
-        setButtonRight([false, false, true, false]);
-      } else if (variant4 === data[1]) {
-        setButtonRight([false, false, false, true]);
-      }
-      if (results[results.length - 1][1] === false) {
-        setButtonWrong(buttonPress);
-      }
-      console.log(results);
-      setButtonPress([false, false, false, false]);
-      setContinueState(1);
-    } else if (continueState === 1) {
-      setButtonPress([false, false, false, false]);
-      setButtonRight([false, false, false, false]);
-      setButtonWrong([false, false, false, false]);
-      setContinueState(0);
-      setVariants();
     }
   }
 
@@ -208,12 +247,13 @@ const SelectionModule: () => Node = ({navigation}) => {
       data = kanaData.katakana;
     } else if (!isHiragana && isIndex !== 0) {
       if (isNigory) {
-        data.concat(kanaData.katakanaNigori);
+        data = kanaData.katakanaNigori;
       }
       if (isHannagory) {
-        data.concat(kanaData.katakanaHannogiri);
+        data = kanaData.katakanaHannogiri;
       }
     }
+
     data = data.filter((item) => {
       return item[0] !== ' '
     })
@@ -241,7 +281,6 @@ const SelectionModule: () => Node = ({navigation}) => {
     } else if (data3.length > 0) {
       min = data3[getRandomInt(data3.length)]
     }
-
     setVariant1(data[getRandomInt(data.length)][1]);
     setVariant2(data[getRandomInt(data.length)][1]);
     setVariant3(data[getRandomInt(data.length)][1]);
@@ -270,106 +309,121 @@ const SelectionModule: () => Node = ({navigation}) => {
       <View style={styles.header}>
         <Text style={styles.headerText}>Octopus</Text>
       </View>
-      <View style={styles.progressHeader}>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('Options')}>
-          <View style={styles.closeWrapper}>
-            <SvgXml xml={CloseImage}/>
-          </View>
-        </TouchableWithoutFeedback>
-        <View style={{flex: 1, flexDirection: 'row'}}>
-          <View style={[styles.progress1, {
-            flex: results.length,
-            backgroundColor: '#FFFFFF'
-          }, results.length > 11 ? {borderRadius: 16} : {}]}>
-            <View style={{backgroundColor: "#34ACE0", borderRadius: 16, flex: 1}}/>
-          </View>
-          <View style={[styles.progress2, {
-            flex: 12 - results.length,
-            backgroundColor: '#FFFFFF'
-          }, results.length > 0 ? {borderTopLeftRadius: 0, borderBottomLeftRadius: 0} : {}]}/>
-        </View>
+      {(!showResults) ? (
+          <View style={{flex: 1}}>
+            <View style={styles.progressHeader}>
+              <TouchableWithoutFeedback onPress={() => navigation.navigate('Options', {"flag": true})}>
+                <View style={styles.closeWrapper}>
+                  <SvgXml xml={CloseImage}/>
+                </View>
+              </TouchableWithoutFeedback>
+              <View style={{flex: 1, flexDirection: 'row'}}>
+                <View style={[styles.progress1, {
+                  flex: results.length,
+                  backgroundColor: '#FFFFFF'
+                }, results.length > 11 ? {borderRadius: 16} : {}]}>
+                  <View style={{backgroundColor: "#34ACE0", borderRadius: 16, flex: 1}}/>
+                </View>
+                <View style={[styles.progress2, {
+                  flex: 12 - results.length,
+                  backgroundColor: '#FFFFFF'
+                }, results.length > 0 ? {borderTopLeftRadius: 0, borderBottomLeftRadius: 0} : {}]}/>
+              </View>
 
-      </View>
-      <View style={styles.textWrapperDiscription}>
-        <Text style={styles.textDiscription}>Выберите верный вариант:</Text>
-      </View>
-      <View style={{flex: 1}}>
-        <View style={styles.kanaWrapper}>
-          <View style={[styles.kanaRight, {height: vw(50), width: vw(50)}]}>
-            <Text style={styles.rightOptionsText}>{mainKana}</Text>
+            </View>
+            <View style={styles.textWrapperDiscription}>
+              <Text style={styles.textDiscription}>Выберите верный вариант:</Text>
+            </View>
+            <View style={{flex: 1}}>
+              <View style={styles.kanaWrapper}>
+                <View style={[styles.kanaRight, {height: vw(50), width: vw(50)}]}>
+                  <Text style={styles.rightOptionsText}>{mainKana}</Text>
+                </View>
+              </View>
+              <View style={{flex: 1, margin: 10}}>
+                <View style={{flex: 1, flexDirection: 'row'}}>
+                  <TouchableWithoutFeedback onPress={() => {
+                    if (continueState === 0) {
+                      setButtonPress([true, false, false, false])
+                    }
+                  }}>
+                    <View style={[styles.options, buttonPress[0] ? {
+                      borderColor: "#34ACE0",
+                      borderWidth: 4
+                    } : buttonWrong[0] ? {borderColor: "#FFBDBD", borderWidth: 4} : buttonRight[0] ? {
+                      borderColor: "#D4F4D3",
+                      borderWidth: 4
+                    } : {}]}>
+                      <Text style={styles.optionsText}>{variant1}</Text>
+                    </View>
+                  </TouchableWithoutFeedback>
+                  <TouchableWithoutFeedback onPress={() => {
+                    if (continueState === 0) {
+                      setButtonPress([false, true, false, false])
+                    }
+                  }}>
+                    <View style={[styles.options, buttonPress[1] ? {
+                      borderColor: "#34ACE0",
+                      borderWidth: 4
+                    } : buttonWrong[1] ? {borderColor: "#FFBDBD", borderWidth: 4} : buttonRight[1] ? {
+                      borderColor: "#D4F4D3",
+                      borderWidth: 4
+                    } : {}]}>
+                      <Text style={styles.optionsText}>{variant2}</Text>
+                    </View>
+                  </TouchableWithoutFeedback>
+                </View>
+                <View style={{flex: 1, flexDirection: 'row'}}>
+                  <TouchableWithoutFeedback onPress={() => {
+                    if (continueState === 0) {
+                      setButtonPress([false, false, true, false])
+                    }
+                  }}>
+                    <View style={[styles.options, buttonPress[2] ? {
+                      borderColor: "#34ACE0",
+                      borderWidth: 4
+                    } : buttonWrong[2] ? {borderColor: "#FFBDBD", borderWidth: 4} : buttonRight[2] ? {
+                      borderColor: "#D4F4D3",
+                      borderWidth: 4
+                    } : {}]}>
+                      <Text style={styles.optionsText}>{variant3}</Text>
+                    </View>
+                  </TouchableWithoutFeedback>
+                  <TouchableWithoutFeedback onPress={() => {
+                    if (continueState === 0) {
+                      setButtonPress([false, false, false, true])
+                    }
+                  }}>
+                    <View style={[styles.options, buttonPress[3] ? {
+                      borderColor: "#34ACE0",
+                      borderWidth: 4
+                    } : buttonWrong[3] ? {borderColor: "#FFBDBD", borderWidth: 4} : buttonRight[3] ? {
+                      borderColor: "#D4F4D3",
+                      borderWidth: 4
+                    } : {}]}>
+                      <Text style={styles.optionsText}>{variant4}</Text>
+                    </View>
+                  </TouchableWithoutFeedback>
+                </View>
+              </View>
+            </View>
+          </View>
+        ) :
+        <View style={{flex: 1, display: 'flex'}}>
+          <View style={styles.results}>
+            <Text style={styles.headerResultText}>Ваш результат:</Text>
+            <Text style={styles.headerResultText}>{rightAnswers} из 12!!</Text>
+            <Text style={styles.headerResultText}>Поздравляем!</Text>
+          </View>
+          <View style={{flex: 1, justifyContent: 'center'}}>
+            {listRenderer(results)}
           </View>
         </View>
-        <View style={{flex: 1, margin: 10}}>
-          <View style={{flex: 1, flexDirection: 'row'}}>
-            <TouchableWithoutFeedback onPress={() => {
-              if (continueState === 0) {
-                setButtonPress([true, false, false, false])
-              }
-            }}>
-              <View style={[styles.options, buttonPress[0] ? {
-                borderColor: "#34ACE0",
-                borderWidth: 4
-              } : buttonWrong[0] ? {borderColor: "#FFBDBD", borderWidth: 4} : buttonRight[0] ? {
-                borderColor: "#D4F4D3",
-                borderWidth: 4
-              } : {}]}>
-                <Text style={styles.optionsText}>{variant1}</Text>
-              </View>
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={() => {
-              if (continueState === 0) {
-                setButtonPress([false, true, false, false])
-              }
-            }}>
-              <View style={[styles.options, buttonPress[1] ? {
-                borderColor: "#34ACE0",
-                borderWidth: 4
-              } : buttonWrong[1] ? {borderColor: "#FFBDBD", borderWidth: 4} : buttonRight[1] ? {
-                borderColor: "#D4F4D3",
-                borderWidth: 4
-              } : {}]}>
-                <Text style={styles.optionsText}>{variant2}</Text>
-              </View>
-            </TouchableWithoutFeedback>
-          </View>
-          <View style={{flex: 1, flexDirection: 'row'}}>
-            <TouchableWithoutFeedback onPress={() => {
-              if (continueState === 0) {
-                setButtonPress([false, false, true, false])
-              }
-            }}>
-              <View style={[styles.options, buttonPress[2] ? {
-                borderColor: "#34ACE0",
-                borderWidth: 4
-              } : buttonWrong[2] ? {borderColor: "#FFBDBD", borderWidth: 4} : buttonRight[2] ? {
-                borderColor: "#D4F4D3",
-                borderWidth: 4
-              } : {}]}>
-                <Text style={styles.optionsText}>{variant3}</Text>
-              </View>
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={() => {
-              if (continueState === 0) {
-                setButtonPress([false, false, false, true])
-              }
-            }}>
-              <View style={[styles.options, buttonPress[3] ? {
-                borderColor: "#34ACE0",
-                borderWidth: 4
-              } : buttonWrong[3] ? {borderColor: "#FFBDBD", borderWidth: 4} : buttonRight[3] ? {
-                borderColor: "#D4F4D3",
-                borderWidth: 4
-              } : {}]}>
-                <Text style={styles.optionsText}>{variant4}</Text>
-              </View>
-            </TouchableWithoutFeedback>
-          </View>
-        </View>
-      </View>
-
+      }
       {(buttonPress[0] === false && buttonPress[1] === false && buttonPress[2] === false && buttonPress[3] === false &&
         buttonRight[0] === false && buttonRight[1] === false && buttonRight[2] === false && buttonRight[3] === false &&
-        buttonWrong[0] === false && buttonWrong[1] === false && buttonWrong[2] === false && buttonWrong[3] === false) ? (
+        buttonWrong[0] === false && buttonWrong[1] === false && buttonWrong[2] === false && buttonWrong[3] === false &&
+        showResults === false) ? (
           <View style={[styles.continue, {backgroundColor: "#F0F0F0"}]}>
             <Text style={styles.continueText}>Продолжить</Text>
           </View>

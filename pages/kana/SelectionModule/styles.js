@@ -106,4 +106,31 @@ export const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
   },
+  symvol: {
+    backgroundColor: '#D4F4D3',
+    margin:5,
+    flex: 0.2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 16,
+  },
+  symvol2: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  kanaLearnSymbolText: {
+    fontFamily: 'NunitoBold',
+    color: '#444A51',
+    fontSize: 24,
+  },
+  results: {
+    margin: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerResultText: {
+    fontFamily: 'NunitoBold',
+    color: '#444A51',
+    fontSize: 24,
+  }
 });

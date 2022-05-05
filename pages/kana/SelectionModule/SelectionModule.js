@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import type {Node} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import {styles} from "./styles";
-import {vw} from 'react-native-expo-viewport-units';
+import {vw, vh} from 'react-native-expo-viewport-units';
 import {CloseImage} from "../../../assets/images/close";
 import {SvgXml} from "react-native-svg";
 import {TouchableWithoutFeedback} from "react-native";
@@ -34,7 +34,7 @@ const SelectionModule: () => Node = ({navigation}) => {
   const listRenderer = (list) => {
     const lineRenderer = (list, num) => {
       let content = [];
-      for (let i = num; i < num + 3; i++) {
+      for (let i = num; i < num + 4; i++) {
         if (i >= list.length) break;
 
         content.push(<View key={i}
@@ -49,7 +49,7 @@ const SelectionModule: () => Node = ({navigation}) => {
       )
     }
     let content = [];
-    for (let i = 0; i < list.length; i += 3) {
+    for (let i = 0; i < list.length; i += 4) {
       content.push(<View key={i} style={styles.line}>{lineRenderer(list, i)}</View>);
     }
     return (
@@ -336,7 +336,7 @@ const SelectionModule: () => Node = ({navigation}) => {
             </View>
             <View style={{flex: 1}}>
               <View style={styles.kanaWrapper}>
-                <View style={[styles.kanaRight, {height: vw(50), width: vw(50)}]}>
+                <View style={[styles.kanaRight, { width: vh(30)}]}>
                   <Text style={styles.rightOptionsText}>{mainKana}</Text>
                 </View>
               </View>
@@ -349,12 +349,18 @@ const SelectionModule: () => Node = ({navigation}) => {
                   }}>
                     <View style={[styles.options, buttonPress[0] ? {
                       borderColor: "#34ACE0",
-                      borderWidth: 4
-                    } : buttonWrong[0] ? {borderColor: "#FFBDBD", borderWidth: 4} : buttonRight[0] ? {
-                      borderColor: "#D4F4D3",
-                      borderWidth: 4
+                      backgroundColor: "#EDFAFF",
+                      borderWidth: 2
+                    } : buttonWrong[0] ? {borderColor: "#EF4444", borderWidth: 2, backgroundColor: "#FFF4F4"} : buttonRight[0] ? {
+                      borderColor: "#22C55E",
+                      backgroundColor: "#EFFFF5",
+                      borderWidth: 2
                     } : {}]}>
-                      <Text style={styles.optionsText}>{variant1}</Text>
+                      <Text style={[styles.optionsText, buttonPress[0] ? {
+                        color: "#34ACE0",
+                      } : buttonWrong[0] ? {color: "#EF4444"} : buttonRight[0] ? {
+                        color: "#22C55E",
+                      } : {}]}>{variant1}</Text>
                     </View>
                   </TouchableWithoutFeedback>
                   <TouchableWithoutFeedback onPress={() => {
@@ -364,12 +370,18 @@ const SelectionModule: () => Node = ({navigation}) => {
                   }}>
                     <View style={[styles.options, buttonPress[1] ? {
                       borderColor: "#34ACE0",
-                      borderWidth: 4
-                    } : buttonWrong[1] ? {borderColor: "#FFBDBD", borderWidth: 4} : buttonRight[1] ? {
-                      borderColor: "#D4F4D3",
-                      borderWidth: 4
+                      backgroundColor: "#EDFAFF",
+                      borderWidth: 2
+                    } : buttonWrong[1] ? {borderColor: "#EF4444", borderWidth: 2, backgroundColor: "#FFF4F4"} : buttonRight[1] ? {
+                      borderColor: "#22C55E",
+                      backgroundColor: "#EFFFF5",
+                      borderWidth: 2
                     } : {}]}>
-                      <Text style={styles.optionsText}>{variant2}</Text>
+                      <Text style={[styles.optionsText, buttonPress[1] ? {
+                        color: "#34ACE0",
+                      } : buttonWrong[1] ? {color: "#EF4444"} : buttonRight[1] ? {
+                        color: "#22C55E",
+                      } : {}]}>{variant2}</Text>
                     </View>
                   </TouchableWithoutFeedback>
                 </View>
@@ -381,12 +393,18 @@ const SelectionModule: () => Node = ({navigation}) => {
                   }}>
                     <View style={[styles.options, buttonPress[2] ? {
                       borderColor: "#34ACE0",
-                      borderWidth: 4
-                    } : buttonWrong[2] ? {borderColor: "#FFBDBD", borderWidth: 4} : buttonRight[2] ? {
-                      borderColor: "#D4F4D3",
-                      borderWidth: 4
+                      backgroundColor: "#EDFAFF",
+                      borderWidth: 2
+                    } : buttonWrong[2] ? {borderColor: "#EF4444", borderWidth: 2, backgroundColor: "#FFF4F4"} : buttonRight[2] ? {
+                      borderColor: "#22C55E",
+                      backgroundColor: "#EFFFF5",
+                      borderWidth: 2
                     } : {}]}>
-                      <Text style={styles.optionsText}>{variant3}</Text>
+                      <Text style={[styles.optionsText, buttonPress[2] ? {
+                        color: "#34ACE0",
+                      } : buttonWrong[2] ? {color: "#EF4444"} : buttonRight[2] ? {
+                        color: "#22C55E",
+                      } : {}]}>{variant3}</Text>
                     </View>
                   </TouchableWithoutFeedback>
                   <TouchableWithoutFeedback onPress={() => {
@@ -396,12 +414,18 @@ const SelectionModule: () => Node = ({navigation}) => {
                   }}>
                     <View style={[styles.options, buttonPress[3] ? {
                       borderColor: "#34ACE0",
-                      borderWidth: 4
-                    } : buttonWrong[3] ? {borderColor: "#FFBDBD", borderWidth: 4} : buttonRight[3] ? {
-                      borderColor: "#D4F4D3",
-                      borderWidth: 4
+                      backgroundColor: "#EDFAFF",
+                      borderWidth: 2
+                    } : buttonWrong[3] ? {borderColor: "#EF4444", borderWidth: 2, backgroundColor: "#FFF4F4"} : buttonRight[3] ? {
+                      borderColor: "#22C55E",
+                      backgroundColor: "#EFFFF5",
+                      borderWidth: 2
                     } : {}]}>
-                      <Text style={styles.optionsText}>{variant4}</Text>
+                      <Text style={[styles.optionsText, buttonPress[3] ? {
+                        color: "#34ACE0",
+                      } : buttonWrong[3] ? {color: "#EF4444"} : buttonRight[3] ? {
+                          color: "#22C55E",
+                      } : {}]}>{variant4}</Text>
                     </View>
                   </TouchableWithoutFeedback>
                 </View>
@@ -425,11 +449,20 @@ const SelectionModule: () => Node = ({navigation}) => {
         buttonWrong[0] === false && buttonWrong[1] === false && buttonWrong[2] === false && buttonWrong[3] === false &&
         showResults === false) ? (
           <View style={[styles.continue, {backgroundColor: "#F0F0F0"}]}>
-            <Text style={styles.continueText}>Продолжить</Text>
+            {(continueState === 1) ? (
+                <Text style={styles.continueText}>Продолжить</Text>
+              ) :
+              <Text style={styles.continueText}>Проверить</Text>
+            }
           </View>
         ) :
         <TouchableOpacity style={styles.continue} onPress={() => continueHandler()}>
-          <Text style={styles.continueText}>Продолжить</Text>
+          {/*<Text style={styles.continueText}>Продолжить</Text>*/}
+          {(continueState === 1) ? (
+              <Text style={styles.continueText}>Продолжить</Text>
+            ) :
+              <Text style={styles.continueText}>Проверить</Text>
+          }
         </TouchableOpacity>
       }
       <View style={styles.footer}/>

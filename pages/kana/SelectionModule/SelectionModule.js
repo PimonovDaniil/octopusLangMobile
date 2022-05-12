@@ -457,7 +457,6 @@ const SelectionModule: () => Node = ({navigation}) => {
           </View>
         ) :
         <TouchableOpacity style={styles.continue} onPress={() => continueHandler()}>
-          {/*<Text style={styles.continueText}>Продолжить</Text>*/}
           {(continueState === 1) ? (
               <Text style={styles.continueText}>Продолжить</Text>
             ) :

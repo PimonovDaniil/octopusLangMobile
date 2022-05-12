@@ -1,0 +1,91 @@
+import {StyleSheet} from "react-native";
+
+export const styles = StyleSheet.create({
+  main: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    backgroundColor: "#F8F8F8",
+  },
+  closeWrapper: {
+    margin: 21,
+  },
+  headerFunctions:{
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection:"row",
+  },
+  progress: {
+    backgroundColor: '#C1CFE2',
+    height: 15,
+    marginTop: 10,
+    marginBottom: 10,
+
+    marginRight: 20,
+    borderRadius: 10,
+    flex: 1,
+  },
+  headerText: {
+    fontSize: 28,
+    marginTop: 10,
+    marginLeft: 20,
+    fontFamily: 'NunitoBold',
+  },
+  header: {
+    height: 80,
+    justifyContent: 'center',
+    backgroundColor: 'white',
+  },
+  TextHeader:{
+    fontSize: 18,
+    textAlign: "center",
+    marginTop: 10,
+    fontFamily: 'NunitoBold',
+  },
+  TextCard:{
+    flex: 0.5,
+    backgroundColor: '#BBDDF5',
+    borderRadius: 16,
+    marginLeft: 20,
+    marginRight: 20,
+    fontSize: 18,
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    fontFamily: 'NunitoBold',
+},
+  soundButtom:{
+    flex: 0.3,
+    marginTop: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    fontSize: 18,
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    fontFamily: 'NunitoBold',
+  },
+  DownButtom:{
+    flex: 1,
+    backgroundColor: '#F0F0F0',
+    borderRadius: 16,
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    fontSize: 18,
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    fontFamily: 'NunitoBold',
+  },
+  buttom:{
+    backgroundColor: "#34ACE0",
+    flex:0.7,
+    borderRadius: 30,
+  },
+  footer:{
+    flex:0.1,
+    backgroundColor: 'white',
+  },
+});

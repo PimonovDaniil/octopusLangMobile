@@ -9,9 +9,10 @@ const Main: () => Node = ({ navigation }) => {
   const [isLoading, setIsLoading] = React.useState(false);
 
   useEffect(() => {
-    if(!axios.defaults['Token']){
-      navigation.navigate('Auth');
-    }
+    // if(!axios.defaults['Token']){
+    //   navigation.navigate('Auth');
+    // }
+    navigation.navigate('SoundTrain', {"text": "myText"});
   });
 
   const checkTokenHandler = () => {

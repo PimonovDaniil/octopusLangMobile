@@ -6,7 +6,7 @@ import {SvgXml} from "react-native-svg";
 import {CloseImage} from "../../../assets/images/close";
 import {vh} from "react-native-expo-viewport-units";
 import {TouchableOpacity} from "react-native";
-import { Audio } from 'expo-av';
+import {Audio} from 'expo-av';
 
 
 const SoundTrain: () => Node = ({navigation, route}) => {
@@ -20,7 +20,8 @@ const SoundTrain: () => Node = ({navigation, route}) => {
     return sound
       ? () => {
         console.log('Unloading Sound');
-        sound.unloadAsync(); }
+        sound.unloadAsync();
+      }
       : undefined;
   }, [sound]);
 
@@ -37,7 +38,7 @@ const SoundTrain: () => Node = ({navigation, route}) => {
         playsInSilentModeIOS: true,
       });
       console.log('Starting recording..');
-      const { recording } = await Audio.Recording.createAsync(
+      const {recording} = await Audio.Recording.createAsync(
         Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
       );
       setRecording(recording);
@@ -55,7 +56,8 @@ const SoundTrain: () => Node = ({navigation, route}) => {
     try {
       await AudioPlayer.current.unloadAsync();
       // Load the Recorded URI
-      await AudioPlayer.current.loadAsync({ uri: uri }, {}, true);
+      await AudioPlayer.current.loadAsync({uri: uri}, {}, true);
+
       // Get Player Status
       const playerStatus = await AudioPlayer.current.getStatusAsync();
       // Play if song is loaded successfully

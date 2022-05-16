@@ -25,7 +25,7 @@ const TrainMenu: () => Node = ({navigation}) => {
           <Image style={[styles.trainBlock, {height: vh(12), width: Dimensions.get('window').width - 20,}]}
                  source={require('../../../assets/images/kanaTrainImage.png')}/>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>navigation.navigate('SentenceTrain', {"flag": true})}>
+        <TouchableOpacity onPress={()=>navigation.navigate('PhrasebookSelect', {"flag": true})}>
           <Image style={[styles.trainBlock, {height: vh(12), width: Dimensions.get('window').width - 20,}]}
                  source={require('../../../assets/images/SentenceTrainImage.png')}/>
         </TouchableOpacity>

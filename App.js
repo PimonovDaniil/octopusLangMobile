@@ -22,6 +22,7 @@ import SelectionModule from "./pages/kana/SelectionModule/SelectionModule";
 import SoundTrain from "./pages/trains/soundTrain/SoundTrain";
 import TrainMenu from "./pages/trains/trainMenu/TrainMenu";
 import SentenceTrain from "./pages/trains/sentenceTrain/SentenceTrain";
+import PhrasebookSelect from "./pages/trains/phrasebookSelect/PhrasebookSelect";
 
 const Stack = createNativeStackNavigator();
 
@@ -41,6 +42,7 @@ const App: () => Node = () => {
           }}>
           <Stack.Screen name="Main" component={Main}/>
           <Stack.Screen name="TrainMenu" component={TrainMenu}/>
+          <Stack.Screen name="PhrasebookSelect" component={PhrasebookSelect}/>
           <Stack.Screen name="SentenceTrain" component={SentenceTrain}/>
 
           <Stack.Screen name="SoundTrain" component={SoundTrain}/>

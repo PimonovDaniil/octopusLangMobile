@@ -346,7 +346,6 @@ const SelectionModule: () => Node = ({navigation}) => {
                   backgroundColor: '#FFFFFF'
                 }, results.length > 0 ? {borderTopLeftRadius: 0, borderBottomLeftRadius: 0} : {}]}/>
               </View>
-
             </View>
             <View style={styles.textWrapperDiscription}>
               <Text style={styles.textDiscription}>Выберите верный вариант:</Text>

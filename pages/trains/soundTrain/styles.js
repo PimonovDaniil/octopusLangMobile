@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     fontFamily: 'NunitoBold',
   },
-  TextCard:{
+  TextCard: {
     flex: 0.5,
     backgroundColor: '#BBDDF5',
     borderRadius: 16,
@@ -53,7 +53,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     textAlign: "center",
     fontFamily: 'NunitoBold',
-},
+  },
   soundButtom:{
     flex: 0.3,
     marginTop: 10,

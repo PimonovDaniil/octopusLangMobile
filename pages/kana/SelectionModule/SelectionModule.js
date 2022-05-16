@@ -272,6 +272,7 @@ const SelectionModule: () => Node = ({navigation}) => {
     })
 
     let min = []
+
     if (data0.length > 0) {
       min = data0[getRandomInt(data0.length)]
     } else if (data1.length > 0) {
@@ -281,10 +282,26 @@ const SelectionModule: () => Node = ({navigation}) => {
     } else if (data3.length > 0) {
       min = data3[getRandomInt(data3.length)]
     }
-    setVariant1(data[getRandomInt(data.length)][1]);
-    setVariant2(data[getRandomInt(data.length)][1]);
-    setVariant3(data[getRandomInt(data.length)][1]);
-    setVariant4(data[getRandomInt(data.length)][1]);
+    let randMass = [min[1]]
+    setVariant1("");
+    setVariant2("");
+    setVariant3("");
+    setVariant4("");
+    let k = 0
+    while(k < 4){
+      let mem = data[getRandomInt(data.length)][1];
+      console.log(mem)
+      if(!randMass.includes(mem)){
+        randMass.push(mem)
+        k++
+      }
+
+    }
+    setVariant1(randMass[1]);
+    setVariant2(randMass[2]);
+    setVariant3(randMass[3]);
+    setVariant4(randMass[4]);
+
     setMainKana(min[0]);
     let r = getRandomInt(4);
     if (r === 0) {
@@ -336,7 +353,7 @@ const SelectionModule: () => Node = ({navigation}) => {
             </View>
             <View style={{flex: 1}}>
               <View style={styles.kanaWrapper}>
-                <View style={[styles.kanaRight, { width: vh(30)}]}>
+                <View style={[styles.kanaRight, {width: vh(30)}]}>
                   <Text style={styles.rightOptionsText}>{mainKana}</Text>
                 </View>
               </View>
@@ -351,7 +368,11 @@ const SelectionModule: () => Node = ({navigation}) => {
                       borderColor: "#34ACE0",
                       backgroundColor: "#EDFAFF",
                       borderWidth: 2
-                    } : buttonWrong[0] ? {borderColor: "#EF4444", borderWidth: 2, backgroundColor: "#FFF4F4"} : buttonRight[0] ? {
+                    } : buttonWrong[0] ? {
+                      borderColor: "#EF4444",
+                      borderWidth: 2,
+                      backgroundColor: "#FFF4F4"
+                    } : buttonRight[0] ? {
                       borderColor: "#22C55E",
                       backgroundColor: "#EFFFF5",
                       borderWidth: 2
@@ -372,7 +393,11 @@ const SelectionModule: () => Node = ({navigation}) => {
                       borderColor: "#34ACE0",
                       backgroundColor: "#EDFAFF",
                       borderWidth: 2
-                    } : buttonWrong[1] ? {borderColor: "#EF4444", borderWidth: 2, backgroundColor: "#FFF4F4"} : buttonRight[1] ? {
+                    } : buttonWrong[1] ? {
+                      borderColor: "#EF4444",
+                      borderWidth: 2,
+                      backgroundColor: "#FFF4F4"
+                    } : buttonRight[1] ? {
                       borderColor: "#22C55E",
                       backgroundColor: "#EFFFF5",
                       borderWidth: 2
@@ -395,7 +420,11 @@ const SelectionModule: () => Node = ({navigation}) => {
                       borderColor: "#34ACE0",
                       backgroundColor: "#EDFAFF",
                       borderWidth: 2
-                    } : buttonWrong[2] ? {borderColor: "#EF4444", borderWidth: 2, backgroundColor: "#FFF4F4"} : buttonRight[2] ? {
+                    } : buttonWrong[2] ? {
+                      borderColor: "#EF4444",
+                      borderWidth: 2,
+                      backgroundColor: "#FFF4F4"
+                    } : buttonRight[2] ? {
                       borderColor: "#22C55E",
                       backgroundColor: "#EFFFF5",
                       borderWidth: 2
@@ -416,7 +445,11 @@ const SelectionModule: () => Node = ({navigation}) => {
                       borderColor: "#34ACE0",
                       backgroundColor: "#EDFAFF",
                       borderWidth: 2
-                    } : buttonWrong[3] ? {borderColor: "#EF4444", borderWidth: 2, backgroundColor: "#FFF4F4"} : buttonRight[3] ? {
+                    } : buttonWrong[3] ? {
+                      borderColor: "#EF4444",
+                      borderWidth: 2,
+                      backgroundColor: "#FFF4F4"
+                    } : buttonRight[3] ? {
                       borderColor: "#22C55E",
                       backgroundColor: "#EFFFF5",
                       borderWidth: 2
@@ -424,7 +457,7 @@ const SelectionModule: () => Node = ({navigation}) => {
                       <Text style={[styles.optionsText, buttonPress[3] ? {
                         color: "#34ACE0",
                       } : buttonWrong[3] ? {color: "#EF4444"} : buttonRight[3] ? {
-                          color: "#22C55E",
+                        color: "#22C55E",
                       } : {}]}>{variant4}</Text>
                     </View>
                   </TouchableWithoutFeedback>
@@ -449,7 +482,7 @@ const SelectionModule: () => Node = ({navigation}) => {
         buttonWrong[0] === false && buttonWrong[1] === false && buttonWrong[2] === false && buttonWrong[3] === false &&
         showResults === false) ? (
           <View style={[styles.continue, {backgroundColor: "#F0F0F0"}]}>
-            {(continueState === 1) ? (
+            {(continueState === 1 || showResults) ? (
                 <Text style={styles.continueText}>Продолжить</Text>
               ) :
               <Text style={styles.continueText}>Проверить</Text>
@@ -457,10 +490,10 @@ const SelectionModule: () => Node = ({navigation}) => {
           </View>
         ) :
         <TouchableOpacity style={styles.continue} onPress={() => continueHandler()}>
-          {(continueState === 1) ? (
+          {(continueState === 1 || showResults) ? (
               <Text style={styles.continueText}>Продолжить</Text>
             ) :
-              <Text style={styles.continueText}>Проверить</Text>
+            <Text style={styles.continueText}>Проверить</Text>
           }
         </TouchableOpacity>
       }

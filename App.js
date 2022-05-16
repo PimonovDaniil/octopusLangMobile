@@ -20,6 +20,8 @@ import Profile from "./pages/profile/Profile";
 import Options from "./pages/kana/options/Options";
 import SelectionModule from "./pages/kana/SelectionModule/SelectionModule";
 import SoundTrain from "./pages/trains/soundTrain/SoundTrain";
+import TrainMenu from "./pages/trains/trainMenu/TrainMenu";
+import SentenceTrain from "./pages/trains/sentenceTrain/SentenceTrain";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,10 +40,12 @@ const App: () => Node = () => {
             headerShown: false
           }}>
           <Stack.Screen name="Main" component={Main}/>
+          <Stack.Screen name="TrainMenu" component={TrainMenu}/>
+          <Stack.Screen name="SentenceTrain" component={SentenceTrain}/>
+
           <Stack.Screen name="SoundTrain" component={SoundTrain}/>
           <Stack.Screen name="Options" component={Options}/>
           <Stack.Screen name="SelectionModule" component={SelectionModule}/>
-
           <Stack.Screen name="Profile" component={Profile}/>
           <Stack.Screen name="ChooseLanguage" component={ChooseLanguage}/>
           <Stack.Screen

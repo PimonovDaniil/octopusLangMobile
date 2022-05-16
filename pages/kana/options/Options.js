@@ -36,6 +36,7 @@ const Options: () => Node = ({navigation}) => {
 
   useEffect( () => {
     (async function() {
+      setIsIndex2(0);
       let hiragana = JSON.parse(await SecureStore.getItemAsync("hiragana"));
       let katakana = JSON.parse(await SecureStore.getItemAsync("katakana"));
       let hiraganaNigori = JSON.parse(await SecureStore.getItemAsync("hiraganaNigori"));

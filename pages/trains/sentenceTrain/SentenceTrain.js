@@ -12,7 +12,7 @@ import {styles} from "./styles";
 import {SvgXml} from "react-native-svg";
 import {CloseImage} from "../../../assets/images/close";
 import {vh, vw} from "react-native-expo-viewport-units";
-import {TouchableOpacity, Image} from "react-native";
+import {TouchableOpacity, Image, ScrollView} from "react-native";
 import {Audio} from 'expo-av';
 import {setIsIndex2, setKanaData2} from "../../../store/kanaData2";
 import * as SecureStore from "expo-secure-store";
@@ -21,21 +21,24 @@ import {deleteItemAsync} from "expo-secure-store";
 
 const SentenceTrain: () => Node = ({navigation}) => {
   const [results, setResults] = React.useState([]);
+  const [kolRight, setKolRight] = React.useState(0);
   const [selectedVarian, setSelectedVarian] = React.useState([]);
   const [rightVariant, setRightVariant] = React.useState([]);
   const [currentSentence, setCurrentSentence] = React.useState([]);
   const [randomeSentence, setRandomeSentence] = React.useState([]);
   const [continueState, setContinueState] = React.useState(0);
-  const Example_text_1 =
-    [['Привет, меня зовут Сергей', ['こんにちは', '私', 'の', '名前', 'は', 'セルゲイ', 'です'], 0],
-      ['Приятно познакомиться, я Хонда', ['はじめまして', '本田', 'です'], 0],
-      ['Я из Франции', ['フランス', '出身', 'です'], 0],
-      ['Я из России', ['ロシア', '出身', 'です'], 0],
-      ['Мистер накамура учитель', ['中村', 'さん', 'は', '先生', 'です'], 0],
-      ['Да, я студент', ['はい', '学生', 'です'], 0],
-      ['Приятно познакомиться, меня зовут Танака.', ['はじめまして', '田中', 'と言い', 'ます'], 0],
-      ['Мистер Танака японец', ['田中', 'さん', 'は', '日本人', 'です'], 0],
-      ['Я русский', ['ロシア', '人', 'です'], 0],]
+  const [showResults, setShowResults] = React.useState(false);
+
+  const Example_text_1 = [['Привет, меня зовут Сергей', ['こんにちは', '私', 'の', '名前', 'は', 'セルゲイ', 'です'], 0],
+    ['Приятно познакомиться, я Хонда', ['はじめまして', '本田', 'です'], 0],
+    ['Я из Франции', ['フランス', '出身', 'です'], 0],
+    ['Я из России', ['ロシア', '出身', 'です'], 0],
+    ['Мистер накамура учитель', ['中村', 'さん', 'は', '先生', 'です'], 0],
+    ['Да, я студент', ['はい', '学生', 'です'], 0],
+    ['Приятно познакомиться, меня зовут Танака.', ['はじめまして', '田中', 'と言い', 'ます'], 0],
+    ['Мистер Танака японец', ['田中', 'さん', 'は', '日本人', 'です'], 0],
+    ['Я русский', ['ロシア', '人', 'です'], 0],]
+
 
   useEffect(() => {
     (async function () {
@@ -45,6 +48,7 @@ const SentenceTrain: () => Node = ({navigation}) => {
 
   const setVarious = (phrasebook) => {
     setCurrentSentence([])
+
     function getRandomInt(max) {
       return Math.floor(Math.random() * max);
     }
@@ -75,7 +79,6 @@ const SentenceTrain: () => Node = ({navigation}) => {
     setSelectedVarian(min)
     let copy = min[1].slice(0)
     setRightVariant(copy)
-    console.log(rightVariant);
     let res = []
     for (let i = 0; i < len; i++) {
       let r = getRandomInt(min[1].length)
@@ -123,20 +126,30 @@ const SentenceTrain: () => Node = ({navigation}) => {
     //1 - красный 2 - зелёный
     if (continueState === 0) {
       let data = currentSentence.slice(0);
+      let flag = true
       for (let i = 0; i < currentSentence.length; i++) {
-        console.log(data[i][1])
-        console.log(rightVariant[i])
         if (data[i][1] === rightVariant[i]) {
           data[i][3] = 2
         } else {
+          flag = false
           data[i][3] = 1
         }
       }
+      if (flag) {
+        setKolRight(kolRight + 1);
+      }
       setCurrentSentence(data)
+      setResults([...results, [flag, data]])
       setContinueState(1)
-    }else if(continueState === 1){
+    } else if (continueState === 1) {
       setVarious(Example_text_1);
       setContinueState(0)
+      if (results.length >= 12) {
+        setShowResults(true);
+        setContinueState(2)
+      }
+    }else if (continueState === 2) {
+      navigation.navigate('PhrasebookSelect', {"flag": true})
     }
   }
 
@@ -165,7 +178,8 @@ const SentenceTrain: () => Node = ({navigation}) => {
       content.push(
         <TouchableWithoutFeedback key={i} onPress={() => wordsHandler(list[i])}>
           <View key={i} style={styles.sentenceTextWrapper}>
-            <Text style={[styles.sentenceText, list[i][3] === 1 ? {color: "red"} : list[i][3] === 2 ? {color: "green"} : {}]}>{list[i][1]}</Text>
+            <Text
+              style={[styles.sentenceText, list[i][3] === 1 ? {color: "red"} : list[i][3] === 2 ? {color: "green"} : {}]}>{list[i][1]}</Text>
           </View>
         </TouchableWithoutFeedback>
       );
@@ -176,46 +190,106 @@ const SentenceTrain: () => Node = ({navigation}) => {
       </View>
     )
   }
+
+  const resultWords = (res) => {
+    console.log(res)
+    console.log(res[0])
+    let list = res[1]
+    let content = [];
+    for (let i = 0; i < list.length; i++) {
+      content.push(
+        <View key={i}>
+          <Text
+            style={[styles.sentenceText, list[i][3] === 1 ? {color: "red"} : list[i][3] === 2 ? {color: "green"} : {}]}>{list[i][1]}</Text>
+        </View>
+      );
+    }
+    return (
+      <View
+        style={[styles.showreswords, res[0] === false ? {backgroundColor: "#FFEBEB"} : {backgroundColor: "#D4F4D3"}]}>
+        {content}
+      </View>
+    )
+  }
+
+  const resultSentence = (list) => {
+    let content = [];
+    for (let i = 0; i < list.length; i++) {
+      content.push(
+        <View key={i}>
+          {resultWords(results[i])}
+        </View>
+      );
+    }
+    return (
+      <View>
+        {content}
+      </View>
+    )
+  }
+
   return (
     <View style={styles.main}>
       <View style={styles.header}>
         <Text style={styles.headerText}>Octopus</Text>
       </View>
       <View style={{flex: 1}}>
-        <View style={styles.progressHeader}>
-          <TouchableWithoutFeedback onPress={() => navigation.navigate('PhrasebookSelect', {"flag": true})}>
-            <View style={styles.closeWrapper}>
-              <SvgXml xml={CloseImage}/>
+        {(showResults === false) ? (
+            <View style={{flex: 1}}>
+              <View style={styles.progressHeader}>
+                <TouchableWithoutFeedback onPress={() => navigation.navigate('PhrasebookSelect', {"flag": true})}>
+                  <View style={styles.closeWrapper}>
+                    <SvgXml xml={CloseImage}/>
+                  </View>
+                </TouchableWithoutFeedback>
+                <View style={{flex: 1, flexDirection: 'row'}}>
+                  <View style={[styles.progress1, {
+                    flex: results.length,
+                    backgroundColor: '#FFFFFF'
+                  }, results.length > 11 ? {borderRadius: 16} : {}]}>
+                    <View style={{backgroundColor: "#34ACE0", borderRadius: 16, flex: 1}}/>
+                  </View>
+                  <View style={[styles.progress2, {
+                    flex: 12 - results.length,
+                    backgroundColor: '#FFFFFF'
+                  }, results.length > 0 ? {borderTopLeftRadius: 0, borderBottomLeftRadius: 0} : {}]}/>
+                </View>
+              </View>
+              <View style={styles.textWrapperDiscription}>
+                <Text style={styles.textDiscription}>Напишите на японском:</Text>
+              </View>
+              <View style={styles.TextCard}>
+                <Text style={styles.textDiscription}>{selectedVarian[0]}</Text>
+              </View>
+              <View style={{flex: 0.25, justifyContent: "center"}}>
+                {words(currentSentence)}
+              </View>
+              <View style={{flex: 0.4, justifyContent: "center"}}>
+                {wordsVarious(randomeSentence)}
+              </View>
             </View>
-          </TouchableWithoutFeedback>
-          <View style={{flex: 1, flexDirection: 'row'}}>
-            <View style={[styles.progress1, {
-              flex: results.length,
-              backgroundColor: '#FFFFFF'
-            }, results.length > 11 ? {borderRadius: 16} : {}]}>
-              <View style={{backgroundColor: "#34ACE0", borderRadius: 16, flex: 1}}/>
+          ) :
+          <View style={{flex: 1}}>
+            <View style={styles.results}>
+              <Text style={styles.headerResultText}>Ваш результат:</Text>
+              <Text style={styles.headerResultText}>{kolRight} из 12!!</Text>
+              <Text style={styles.headerResultText}>Поздравляем!</Text>
             </View>
-            <View style={[styles.progress2, {
-              flex: 12 - results.length,
-              backgroundColor: '#FFFFFF'
-            }, results.length > 0 ? {borderTopLeftRadius: 0, borderBottomLeftRadius: 0} : {}]}/>
+            <View style={{flex: 1}}>
+              <ScrollView scrollEventThrottle={16} showsVerticalScrollIndicator={false}>
+                {resultSentence(results)}
+              </ScrollView>
+            </View>
+
           </View>
-        </View>
-        <View style={styles.textWrapperDiscription}>
-          <Text style={styles.textDiscription}>Напишите на японском:</Text>
-        </View>
-        <View style={styles.TextCard}>
-          <Text style={styles.textDiscription}>{selectedVarian[0]}</Text>
-        </View>
-        <View style={{flex: 0.25, justifyContent: "center"}}>
-          {words(currentSentence)}
-        </View>
-        <View style={{flex: 0.25, justifyContent: "center"}}>
-          {wordsVarious(randomeSentence)}
-        </View>
-        {(currentSentence.length === rightVariant.length) ? (
+        }
+        {(currentSentence.length === rightVariant.length || continueState===2) ? (
             <TouchableOpacity style={styles.button} onPress={() => buttonHandler()}>
-              <Text style={[styles.textDiscription, {color: "white"}]}>Проверить</Text>
+              {(continueState===0) ? (
+                <Text style={[styles.textDiscription, {color: "white"}]}>Проверить</Text>
+                ) :
+                <Text style={[styles.textDiscription, {color: "white"}]}>Продолжить</Text>
+              }
             </TouchableOpacity>
           ) :
           <View style={[styles.button, {backgroundColor: "#F0F0F0"}]}>

@@ -37,6 +37,11 @@ export const styles = StyleSheet.create({
     backgroundColor: '#34ACE0',
     zIndex: 0,
   },
+  results: {
+    margin: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   progress2: {
     marginRight: 23,
     marginTop: 23,
@@ -82,4 +87,20 @@ export const styles = StyleSheet.create({
     margin: 20,
     borderRadius: 16,
   },
+  showreswords: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    backgroundColor: 'blue',
+    marginTop: 10,
+    marginRight:20,
+    marginLeft: 20,
+    padding: 20,
+    borderRadius: 16,
+  },
+  headerResultText: {
+    fontFamily: 'NunitoBold',
+    color: '#444A51',
+    fontSize: 24,
+  }
 });

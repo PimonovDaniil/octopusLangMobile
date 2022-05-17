@@ -40,11 +40,10 @@ const App: () => Node = () => {
           screenOptions={{
             headerShown: false
           }}>
-          <Stack.Screen name="Main" component={Main}/>
           <Stack.Screen name="TrainMenu" component={TrainMenu}/>
           <Stack.Screen name="PhrasebookSelect" component={PhrasebookSelect}/>
           <Stack.Screen name="SentenceTrain" component={SentenceTrain}/>
-
+          <Stack.Screen name="Main" component={Main}/>
           <Stack.Screen name="SoundTrain" component={SoundTrain}/>
           <Stack.Screen name="Options" component={Options}/>
           <Stack.Screen name="SelectionModule" component={SelectionModule}/>
